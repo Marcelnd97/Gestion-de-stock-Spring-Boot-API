@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "flickr.apiSecret",
+      "type": "java.lang.String",
+      "description": "Description for flickr.apiSecret."
+    },
+    {
+      "name": "swagger.enable",
+      "type": "java.lang.String",
+      "description": "Description for swagger.enable."
+    }
+  ] }

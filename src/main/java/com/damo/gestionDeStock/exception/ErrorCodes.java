@@ -1,0 +1,38 @@
+package com.damo.gestionDeStock.exception;
+
+public enum ErrorCodes {
+
+    ARTICLE_NOT_FOUND(1000),
+    ARTICLE_NOT_VALID(1001),
+    CATEGORY_NOT_FOUND(2000),
+    //TODO complete the rest of the error codes
+    CLIENT_NOT_FOUND(3000),
+    ENTREPRISE_NOT_FOUND(4000),
+    COMMANDE_CLIENT_NOT_FOUND(5000),
+    COMMANDE_CLIENT_NON_MODIFIABLE(5001),
+    COMMANDE_FOURNISSEUR_NOT_FOUND(6000),
+    COMMANDE_FOURNISSEUR_NON_MODIFIABLE(6001),
+    LIGNE_COMMANDE_CLIENT_NOT_FOUND(7000),
+    LIGNE_COMMANDE_FOURNISSEUR_NOT_FOUND(8000),
+    LIGNE_VENTE_NOT_FOUND(9000),
+    MOUVE_STK_NOT_FOUND(10000),
+    UTILISATEUR_NOT_FOUND(11000),
+    USER_CHANGE_PASSWORD_OBJECT_NOT_VALID(11001),
+    VENTE_NOT_FOUND(12000),
+    FOURNISSEUR_NOT_FOUND(13000),
+
+    //Liste des exceptions technique
+    UPDATE_PHOTO_EXCEPTION(14000),
+    UNKNOWN_CONTEXT(14001);
+
+    private int code;
+
+    ErrorCodes(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return  code;
+    }
+
+}
