@@ -7,7 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:local": "npm run gs-api && ng serve -- --proxyConfig=proxy.conf.json",
+    "gs-api": "npm run gs-api:create-dist && npm run gs-api:download && npm run gs-api:extract && npm run gs-api:swagger-gen",
+    "gs-api:create-dist": "mkdirp tools/swagger/dist && mkdirp tools/swagger/src",
+    "gs-api:download": "Xcopy C:\\Users\\user\\Documents\\Spring_Boot_Back_End\\gestionDeStock\\target\\gestionDeStock-0.0.1-SNAPSHOT.jar .\\tools\\swagger\\dist /E && Xcopy C:\\Users\\user\\Documents\\Spring_Boot_Back_End\\gestionDeStock\\target\\swagger.json .\\tools\\swagger\\src /E",
+    "gs-api:extract": "node ./tools/swagger/src/swagger.json 0.0.1-SNAPSHOT",
+    "gs-api:swagger-gen": "C:\\Users\\user\\Gestion_De_Stock_Front\\node_modules\\.bin\\ng-swagger-gen -i ./tools/swagger/src/swagger.json -o src/gs-api/src"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +25,9 @@
     "@angular/platform-browser": "~11.2.7",
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -37,6 +46,8 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^5.3.0",
+    "ng-swagger-gen": "^1.7.0-b",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
