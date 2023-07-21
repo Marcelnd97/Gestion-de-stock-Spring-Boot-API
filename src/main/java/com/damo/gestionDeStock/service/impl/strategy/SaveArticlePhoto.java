@@ -1,8 +1,8 @@
 package com.damo.gestionDeStock.service.impl.strategy;
 
 import com.damo.gestionDeStock.dto.ArticleDto;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalideOperationException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.damo.gestionDeStock.service.ArticleService;
 import com.damo.gestionDeStock.service.FlickrService;
 import com.flickr4java.flickr.FlickrException;

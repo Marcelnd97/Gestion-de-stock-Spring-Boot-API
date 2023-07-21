@@ -5,10 +5,14 @@ import com.damo.gestionDeStock.dto.ArticleDto;
 import com.damo.gestionDeStock.dto.LigneCommandeClientDto;
 import com.damo.gestionDeStock.dto.LigneCommandeFournisseurDto;
 import com.damo.gestionDeStock.dto.LigneVentesDto;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.damo.gestionDeStock.model.Article;
+import com.damo.gestionDeStock.model.LigneCommandeClient;
+import com.damo.gestionDeStock.model.LigneCommandeFournisseur;
+import com.damo.gestionDeStock.model.LigneVente;
 import com.damo.gestionDeStock.repository.ArticleRepository;
 import com.damo.gestionDeStock.repository.LigneCommandeClientRepository;
 import com.damo.gestionDeStock.repository.LigneCommandeFournisseurRepository;
@@ -18,6 +22,7 @@ import com.damo.gestionDeStock.validator.ArticleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +79,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDto findByCodeArticle(String codeArticle) {
 
-        if (codeArticle == null){
+        if (!StringUtils.hasLength(codeArticle)){
             log.error("Article CODE is null");
             return  null;
         }
@@ -100,7 +105,23 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Article ID is null");
             return;
         }
-        articleRepository.findById(id);
+
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByArticleId(id);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer un article deja utilise dans des commandes client",
+                    ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllByArticleId(id);
+        if (!ligneCommandeFournisseurs.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer un article deja utilise dans des commandes fournisseur",
+                    ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByArticleId(id);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer un article deja utilise dans des ventes",
+                    ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+        articleRepository.deleteById(id);
     }
 
     @Override

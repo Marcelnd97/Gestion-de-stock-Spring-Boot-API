@@ -32,7 +32,7 @@ public class FlickrConfiguration {
 
         Auth auth = new Auth();
 
-        auth.setPermission(Permission.DELETE);
+        auth.setPermission(Permission.READ);
 
         auth.setToken(apiKey);
         auth.setTokenSecret(apiSecret);

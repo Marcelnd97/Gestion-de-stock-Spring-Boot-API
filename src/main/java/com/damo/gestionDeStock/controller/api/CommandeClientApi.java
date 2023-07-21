@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
+import static com.damo.gestionDeStock.utils.Constants.*;
 
-@Api(APP_ROOT + "/commandeClients")
+@Api("commandeClients")
 public interface CommandeClientApi {
 
-    @PostMapping(APP_ROOT + "/commandeClients/create")
+    @PostMapping(CREATE_COMMANDECLIENT_ENDPOINT)
     ResponseEntity<CommandeClientDto> save(@RequestBody CommandeClientDto cmdCltDto);
 
     @PatchMapping(APP_ROOT + "/commandeClients/etat/update/{idCommande}/{etatCommande}")

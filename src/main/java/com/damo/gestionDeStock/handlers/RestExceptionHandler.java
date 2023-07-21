@@ -1,10 +1,12 @@
 package com.damo.gestionDeStock.handlers;
 
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
-import com.damo.gestionDeStock.exception.InvalideOperationException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -14,8 +16,6 @@ import java.util.Collections;
 
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler{
-
-    private ErrorDto errorDto;
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorDto> handlerException(EntityNotFoundException exception, WebRequest webRequest){
@@ -50,6 +50,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 
         final  ErrorDto errorDto = ErrorDto.builder()
                 .code(exception.getErrorCodes())
+                .HttpCode(badRequest.value())
+                .message(exception.getMessage())
+                .errors(exception.getErrors())
+                .build();
+
+        return new ResponseEntity<>(errorDto, badRequest);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDto> handlerException(BadCredentialsException exception, WebRequest webRequest){
+
+        final HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+
+        final  ErrorDto errorDto = ErrorDto.builder()
+                .code(ErrorCodes.BAD_CREDENTIALS)
                 .HttpCode(badRequest.value())
                 .message(exception.getMessage())
                 .errors(Collections.singletonList("Login et / ou mot de pass incorrecte"))

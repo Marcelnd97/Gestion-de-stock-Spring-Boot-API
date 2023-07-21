@@ -3,13 +3,16 @@ package com.damo.gestionDeStock.service;
 import com.damo.gestionDeStock.dto.MouveStockDto;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
 public interface MouveStkService {
 
-    MouveStockDto save(MouveStockDto mouveStk);
-    MouveStockDto findById(Integer id);
-    List<MouveStockDto> findAll();
-    void delete(Integer id);
+    BigDecimal stockReelArticle(Integer idArticle);
+    MouveStockDto entreeStock(MouveStockDto dto);
+    MouveStockDto sortieStock(MouveStockDto dto);
+    MouveStockDto correctionStockPos(MouveStockDto dto);
+    MouveStockDto correctionStockNeg(MouveStockDto dto);
+    List<MouveStockDto> mvtStkArticle(Integer idArticle);
 }

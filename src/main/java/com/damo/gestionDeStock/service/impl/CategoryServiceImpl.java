@@ -1,10 +1,13 @@
 package com.damo.gestionDeStock.service.impl;
 
 import com.damo.gestionDeStock.dto.CategoryDto;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
+import com.damo.gestionDeStock.model.Article;
 import com.damo.gestionDeStock.model.Category;
+import com.damo.gestionDeStock.repository.ArticleRepository;
 import com.damo.gestionDeStock.repository.CategoryRepository;
 import com.damo.gestionDeStock.service.CategoryService;
 import com.damo.gestionDeStock.validator.CategoryValidator;
@@ -22,10 +25,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     private CategoryRepository categoryRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository){
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ArticleRepository articleRepository){
         this.categoryRepository = categoryRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
@@ -35,7 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
 
         if (!errors.isEmpty()){
              log.error("Category is not valid {}", categDto);
-             throw new InvalidEntityException("La categorie n'est pas valide", ErrorCodes.CATEGORY_NOT_FOUND, errors);
+             throw new InvalidEntityException("La categorie n'est pas valide",
+                     ErrorCodes.CATEGORY_NOT_VALID, errors);
         }
 
         return CategoryDto.fromEntity(categoryRepository.save(CategoryDto.toEntity(categDto)));
@@ -83,6 +89,11 @@ public class CategoryServiceImpl implements CategoryService {
             log.error("Category ID is null");
             return;
         }
-        categoryRepository.findById(id);
+        List<Article> article = articleRepository.findAlArticleByCategoryId(id);
+        if (!article.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer cette categorie qui est deja utilise",
+                    ErrorCodes.CATEGORY_ALREADY_IN_USE);
+        }
+        categoryRepository.deleteById(id);
     }
 }

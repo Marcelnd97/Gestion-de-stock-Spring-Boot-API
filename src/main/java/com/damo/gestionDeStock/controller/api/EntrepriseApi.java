@@ -8,18 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
-@Api(APP_ROOT + "/entreprise")
+import static com.damo.gestionDeStock.utils.Constants.ENTREPRISE_ENDPOINT;
+
+@Api("entreprise")
 public interface EntrepriseApi {
 
-    @PostMapping(value = APP_ROOT + "/entreprise/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = ENTREPRISE_ENDPOINT + "/create", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     EntrepriseDto save(@RequestBody EntrepriseDto entrepriseDto);
 
-    @GetMapping(value = APP_ROOT + "/entreprise/{idEntreprise}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = ENTREPRISE_ENDPOINT + "/{idEntreprise}", produces = MediaType.APPLICATION_JSON_VALUE)
     EntrepriseDto findById(@PathVariable("idEntreprise")Integer id);
 
-    @GetMapping(value = APP_ROOT + "/entreprise/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = ENTREPRISE_ENDPOINT + "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<EntrepriseDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT + "/entreprise/delete/{idEntreprise}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = ENTREPRISE_ENDPOINT + "/delete/{idEntreprise}", produces = MediaType.APPLICATION_JSON_VALUE)
     void delete(@PathVariable("idEntreprise") Integer id);
 }

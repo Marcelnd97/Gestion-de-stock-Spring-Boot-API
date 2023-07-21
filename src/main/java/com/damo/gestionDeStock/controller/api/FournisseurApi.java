@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
-@Api(APP_ROOT + "/fournisseur")
+@Api("fournisseur")
 public interface FournisseurApi {
 
     @PostMapping(value = APP_ROOT + "/fournisseur/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

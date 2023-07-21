@@ -5,6 +5,8 @@ public interface Constants {
     String APP_ROOT = "gestiondestock/v1";
 
     String COMMANDE_FOURNISSEUR_ENDPOINT = APP_ROOT + "/commandesFournisseur";
+    String COMMANDE_CLIENT_ENDPOINT = APP_ROOT + "/commandesClient";
+    String CREATE_COMMANDECLIENT_ENDPOINT = COMMANDE_CLIENT_ENDPOINT + "/create";
     String CREATE_COMMANDEFOURNISSEUR_ENDPOINT = COMMANDE_FOURNISSEUR_ENDPOINT + "/create";
     String FIND_BY_ID_COMMANDEFOURNISSEUR_ENDPOINT = COMMANDE_FOURNISSEUR_ENDPOINT + "/{idCommandeFournisseur}";
     String FIND_BY_CODE_COMMANDEFOURNISSEUR_ENDPOINT = COMMANDE_FOURNISSEUR_ENDPOINT + "/codeCOMF/{codeCommandeFournisseur}";
@@ -23,5 +25,7 @@ public interface Constants {
 
     String DELETE_ARTICLE_COMMANDEFOURNISSEUR_ENDPOINT = COMMANDE_FOURNISSEUR_ENDPOINT +"/deleteArticle/{idCommande}/{idLigneCommande}";
     String AUTHENTICATION_ENDPOINT = APP_ROOT + "/auth";
+    String ENTREPRISE_ENDPOINT = APP_ROOT + "/entreprise";
+    String UTILISATEUR_ENDPOINT = APP_ROOT + "/utilisateur";
 
 }

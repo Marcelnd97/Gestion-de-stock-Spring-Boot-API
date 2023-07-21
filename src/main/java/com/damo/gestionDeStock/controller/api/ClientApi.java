@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
-@Api(APP_ROOT + "/client")
+@Api("client")
 public interface ClientApi {
     @PostMapping(value = APP_ROOT + "/client/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un client", notes = "Cette méthode permet d'enregistrer ou modifier un client", response = ArticleDto.class)

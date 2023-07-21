@@ -1,6 +1,7 @@
 package com.damo.gestionDeStock.dto;
 
 import com.damo.gestionDeStock.model.MouveStock;
+import com.damo.gestionDeStock.model.SourceMvt;
 import com.damo.gestionDeStock.model.TypeMouveStk;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class MouveStockDto {
 
     private TypeMouveStk typeMouveStk;
 
+    private SourceMvt sourceMvt;
     private Integer idEntreprise;
 
     public static MouveStockDto fromEntity(MouveStock mouveStock) {
@@ -35,6 +37,9 @@ public class MouveStockDto {
                 .quantite(mouveStock.getQuantite())
                 .dateMouveStock(mouveStock.getDateMouveStock())
                 .idEntreprise(mouveStock.getIdEntreprise())
+                .article(ArticleDto.fromEntity(mouveStock.getArticle()))
+                .typeMouveStk(mouveStock.getTypeMouveStk())
+                .sourceMvt(mouveStock.getSourceMvt())
                 .build();
     }
 
@@ -49,7 +54,9 @@ public class MouveStockDto {
         mouveStock.setQuantite(mouveStockDto.getQuantite());
         mouveStock.setDateMouveStock(mouveStockDto.getDateMouveStock());
         mouveStock.setIdEntreprise(mouveStockDto.getIdEntreprise());
-
+        mouveStock.setSourceMvt(mouveStockDto.getSourceMvt());
+        mouveStock.setArticle(ArticleDto.toEntity(mouveStockDto.getArticle()));
+        mouveStock.setTypeMouveStk(mouveStockDto.getTypeMouveStk());
         return mouveStock;
     }
 }

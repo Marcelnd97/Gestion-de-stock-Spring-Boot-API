@@ -20,12 +20,17 @@ public class MouveStock extends AbstractEntity{
     @Column(name = "quantite")
     private BigDecimal quantite;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "idarticle")
     private Article article;
 
-//    @Column(name = "typemouvestk")
-//    private TypeMouveStkDto typeMouveStk;
+    @Column(name = "typemvstk")
+    @Enumerated(EnumType.STRING)
+    private TypeMouveStk typeMouveStk;
+
+    @Column(name = "sourcemvt")
+    @Enumerated(EnumType.STRING)
+    private SourceMvt sourceMvt;
 
     @Column(name = "identreprise")
     private Integer idEntreprise;

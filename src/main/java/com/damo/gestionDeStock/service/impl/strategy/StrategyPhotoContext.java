@@ -1,9 +1,9 @@
 package com.damo.gestionDeStock.service.impl.strategy;
 
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalideOperationException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.flickr4java.flickr.FlickrException;
-import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class StrategyPhotoContext {
     private BeanFactory beanFactory;
     private Strategy strategy;
 
-    @Getter
+    @Setter
     private String context;
 
     @Autowired

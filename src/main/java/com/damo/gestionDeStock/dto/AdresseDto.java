@@ -35,7 +35,7 @@ public class AdresseDto {
                 .build();
     }
 
-    public Adresse toEntity(AdresseDto adresseDto) {
+    public static Adresse toEntity(AdresseDto adresseDto) {
         if (adresseDto == null) {
             return null;
             // Todo throw an Exception

@@ -22,8 +22,8 @@ public class Entreprise extends AbstractEntity{
     @Embedded
     private Adresse adresse;
 
-    @Column(name = "codefiscale")
-    private String codeFiscale;
+    @Column(name = "codefiscal")
+    private String codeFiscal;
 
     @Column(name = "photo")
     private String photo;
@@ -31,12 +31,13 @@ public class Entreprise extends AbstractEntity{
     @Column(name = "email")
     private String email;
 
-    @Column(name = "numTel")
+    @Column(name = "numtel")
     private String numTel;
 
     @Column(name = "siteweb")
     private String siteWeb;
 
     @OneToMany(mappedBy = "entreprise")
-    private List<Utilisateur> utilisateur;
+    private List<Utilisateur> utilisateurs;
+
 }

@@ -1,4 +1,4 @@
-package com.damo.gestionDeStock.exception;
+package com.damo.gestionDeStock.handlers.exception;
 
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ public class EntityNotFoundException extends RuntimeException{
     @Getter
     private ErrorCodes errorCodes;
 
-    public EntityNotFoundException(String message, ErrorCodes articleNotFound, List<String> articleErrors) {
+    public EntityNotFoundException(String message) {
         super(message);
     }
 

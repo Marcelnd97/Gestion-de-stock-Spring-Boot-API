@@ -1,9 +1,14 @@
 package com.damo.gestionDeStock.model;
 
-import javax.persistence.*;
-import lombok.*;
-
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -11,17 +16,18 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "category")
-public class Category extends AbstractEntity{
+public class Category extends AbstractEntity {
 
     @Column(name = "code")
     private String code;
 
-    @Column(name = "identreprise")
-    private Integer idEntreprise;
-
     @Column(name = "designation")
     private String designation;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "identreprise")
+    private Integer idEntreprise;
+
+    @OneToMany(mappedBy = "category")
     private List<Article> articles;
+
 }

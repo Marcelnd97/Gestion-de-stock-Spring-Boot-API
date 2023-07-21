@@ -1,7 +1,5 @@
 package com.damo.gestionDeStock.dto;
 
-import com.damo.gestionDeStock.model.Adresse;
-import com.damo.gestionDeStock.model.Entreprise;
 import com.damo.gestionDeStock.model.Fournisseur;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -47,6 +45,7 @@ public class FournisseurDto {
                 .mail(fournisseur.getMail())
                 .numTel(fournisseur.getNumTel())
                 .idEntreprise(fournisseur.getIdEntreprise())
+
                 .build();
     }
 
@@ -56,12 +55,16 @@ public class FournisseurDto {
             // Todo throw an Exception
         }
         Fournisseur fournisseur = new Fournisseur();
+
         fournisseur.setId(fournisseurDto.getId());
         fournisseur.setPrenom(fournisseurDto.getPrenom());
+        fournisseur.setNom(fournisseurDto.getNom());
         fournisseur.setPhoto(fournisseurDto.getPhoto());
         fournisseur.setMail(fournisseurDto.getMail());
         fournisseur.setNumTel(fournisseurDto.getNumTel());
-        fournisseur.setIdEntreprise(fournisseur.getIdEntreprise());
+        fournisseur.setIdEntreprise(fournisseurDto.getIdEntreprise());
+        fournisseur.setAdresse(AdresseDto.toEntity(fournisseurDto.getAdresse()));
+
         return fournisseur;
     }
 }

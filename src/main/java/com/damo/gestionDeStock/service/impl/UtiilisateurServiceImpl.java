@@ -2,10 +2,10 @@ package com.damo.gestionDeStock.service.impl;
 
 import com.damo.gestionDeStock.dto.ChangerMotDePasseUtilisateurDto;
 import com.damo.gestionDeStock.dto.UtilisateurDto;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
-import com.damo.gestionDeStock.exception.InvalideOperationException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.damo.gestionDeStock.model.Utilisateur;
 import com.damo.gestionDeStock.repository.UtilisateurRepository;
 import com.damo.gestionDeStock.service.UtilisateurService;
@@ -42,10 +42,10 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
             throw new InvalidEntityException("L'utilisateur n'est pas valide",
                     ErrorCodes.UTILISATEUR_NOT_FOUND, errors);
         }
-        if (userAlreadyExists(utilisDto.getMail())){
-            throw new InvalidEntityException("Unautre utilisateur avec le meme email existe dejà",
+        if (userAlreadyExists(utilisDto.getEmail())){
+            throw new InvalidEntityException("Un autre utilisateur avec le meme email existe dejà",
                     ErrorCodes.UTILISATEUR_NOT_FOUND,
-                    Collections.singletonList("Unautre utilisateur avec le meme email existe dejà dans la BDD"));
+                    Collections.singletonList("Un autre utilisateur avec le meme email existe dejà dans la BDD"));
         }
         utilisDto.setMotDePasse(passwordEncoder.encode(utilisDto.getMotDePasse()));
 
@@ -53,14 +53,14 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
     }
 
     private Boolean userAlreadyExists(String email){
-        Optional<Utilisateur> user = utilisateurRepository.findUtilisateurByMail(email);
+        Optional<Utilisateur> user = utilisateurRepository.findUtilisateurByEmail(email);
         return user.isPresent();
     }
 
     @Override
     public UtilisateurDto findById(Integer id) {
         if (id == null){
-            log.error("User ID is not valid");
+            log.error("Users ID is not valid");
             return  null;
         }
 
@@ -82,7 +82,7 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
     public void delete(Integer id) {
 
         if (id == null){
-            log.error("User ID is not valid");
+            log.error("Users ID is not valid");
             return;
         }
         utilisateurRepository.findById(id);
@@ -90,7 +90,7 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public UtilisateurDto findByMail(String mail){
-        return utilisateurRepository.findUtilisateurByMail(mail)
+        return utilisateurRepository.findUtilisateurByEmail(mail)
                 .map(UtilisateurDto::fromEntity)
                 .orElseThrow(()-> new EntityNotFoundException(
                         "Aucun utilisateur avec l'email :" + mail + "n'a été trouvé dans la BDD",
@@ -108,7 +108,7 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
                    ErrorCodes.UTILISATEUR_NOT_FOUND);
        }
        Utilisateur utilisateur = utilisateurOptional.get();
-       utilisateur.setMotDePasse(changerMotDePasseDto.getMotDePasse());
+       utilisateur.setMotDePasse(passwordEncoder.encode(changerMotDePasseDto.getMotDePasse()));
 
         return UtilisateurDto.fromEntity(
                 utilisateurRepository.save(utilisateur));
@@ -130,7 +130,7 @@ public class UtiilisateurServiceImpl implements UtilisateurService {
             throw new InvalideOperationException("Mot de passe utilisateur null:: impossible de modifier le mot de passe",
                     ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);
         }
-        if (changerMotDePasseDto.getMotDePasse().equals(changerMotDePasseDto.getConfirmeMotDePasse())){
+        if (!changerMotDePasseDto.getMotDePasse().equals(changerMotDePasseDto.getConfirmeMotDePasse())){
             log.warn("Impossible de modifier le mot de passe avec deux mot de passe différent");
             throw new InvalideOperationException("Mot de passe utilisateur non conforme:: impossible de modifier le mot de passe",
                     ErrorCodes.USER_CHANGE_PASSWORD_OBJECT_NOT_VALID);

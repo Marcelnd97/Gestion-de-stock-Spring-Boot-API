@@ -26,7 +26,7 @@ public class CategoryDto {
     public static CategoryDto fromEntity(Category category) {
         if (category == null) {
             return null;
-        // Todo throw an Exception
+            // TODO throw an exception
         }
 
         return CategoryDto.builder()
@@ -40,14 +40,14 @@ public class CategoryDto {
     public static Category toEntity(CategoryDto categoryDto) {
         if (categoryDto == null) {
             return null;
-            // Todo throw an Exception
+            // TODO throw an exception
         }
-        Category category = new Category();
 
+        Category category = new Category();
         category.setId(categoryDto.getId());
         category.setCode(categoryDto.getCode());
         category.setDesignation(categoryDto.getDesignation());
-        category.setIdEntreprise(category.getIdEntreprise());
+        category.setIdEntreprise(categoryDto.getIdEntreprise());
 
         return category;
     }

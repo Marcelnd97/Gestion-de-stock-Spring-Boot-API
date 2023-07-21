@@ -1,17 +1,20 @@
 package com.damo.gestionDeStock.service.impl;
 
 import com.damo.gestionDeStock.dto.*;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.damo.gestionDeStock.model.*;
 import com.damo.gestionDeStock.repository.*;
+import com.damo.gestionDeStock.service.MouveStkService;
 import com.damo.gestionDeStock.service.VenteService;
 import com.damo.gestionDeStock.validator.VenteValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,17 +24,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public class VenteServiceImpl implements VenteService {
 
-    @Autowired
     private VenteRepository venteRepository;
-    @Autowired
+
     private ArticleRepository articleRepository;
+
+    private MouveStkService mouveStkService;
 
     private final LigneVenteRepository ligneVenteRepository;
 
     @Autowired
-    public VenteServiceImpl(VenteRepository venteRepository, ArticleRepository articleRepository, LigneVenteRepository ligneVenteRepository) {
+    public VenteServiceImpl(VenteRepository venteRepository, ArticleRepository articleRepository, MouveStkService mouveStkService, LigneVenteRepository ligneVenteRepository) {
         this.venteRepository = venteRepository;
         this.articleRepository = articleRepository;
+        this.mouveStkService = mouveStkService;
         this.ligneVenteRepository = ligneVenteRepository;
     }
 
@@ -54,7 +59,7 @@ public class VenteServiceImpl implements VenteService {
          });
 
         if (!articleErrors.isEmpty()){
-            log.warn("");
+            log.error("One or more articles were not found in the DB, {}", errors);
             throw new InvalidEntityException("Un ou plusieur article n'ont pas été retrouvé dans la BDD", ErrorCodes.VENTE_NOT_FOUND, articleErrors);
         }
 
@@ -64,6 +69,7 @@ public class VenteServiceImpl implements VenteService {
             LigneVente ligneVente = LigneVentesDto.toEntity(ligVente);
             ligneVente.setVente(saveVente);
             ligneVenteRepository.save(ligneVente);
+            updateMvtStk(ligneVente);
         });
         return  VenteDto.fromEntity(saveVente);
     }
@@ -105,7 +111,29 @@ public class VenteServiceImpl implements VenteService {
     @Override
     public void delete(Integer id) {
 
+        if (id == null) {
+            log.error("Utilisateur ID is null");
+            return;
+        }
+
+        List<LigneVente> ligneVentes = ligneVenteRepository.findAllByVenteId(id);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer une vente ...",
+                    ErrorCodes.VENTE_ALREADY_IN_USE);
+        }
         venteRepository.deleteById(id);
 
+    }
+
+    private void updateMvtStk(LigneVente lig) {
+        MouveStockDto mvtStkDto = MouveStockDto.builder()
+                .article(ArticleDto.fromEntity(lig.getArticle()))
+                .dateMouveStock(Instant.now())
+                .typeMouveStk(TypeMouveStk.SORTIE)
+                .sourceMvt(SourceMvt.VENTE)
+                .quantite(lig.getQuantite())
+                .idEntreprise(lig.getIdEntreprise())
+                .build();
+        mouveStkService.sortieStock(mvtStkDto);
     }
 }

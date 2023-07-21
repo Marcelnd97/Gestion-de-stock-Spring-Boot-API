@@ -20,6 +20,7 @@ public class AppUserDetailsService implements UserDetailsService {
     @Autowired
     private UtilisateurService service;
 
+
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
         UtilisateurDto utilisateur = service.findByMail(mail);
@@ -27,6 +28,6 @@ public class AppUserDetailsService implements UserDetailsService {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
 
-        return new ExtendedUser(utilisateur.getMail(),utilisateur.getMotDePasse(), utilisateur.getEntreprise().getId(), authorities);
+        return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMotDePasse(), utilisateur.getEntreprise().getId(), authorities);
     }
 }

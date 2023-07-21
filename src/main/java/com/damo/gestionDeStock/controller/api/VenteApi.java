@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
 
-@Api(APP_ROOT + "/vente")
+@Api("vente")
 public interface VenteApi {
 
     @PostMapping(value = APP_ROOT + "/vente/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

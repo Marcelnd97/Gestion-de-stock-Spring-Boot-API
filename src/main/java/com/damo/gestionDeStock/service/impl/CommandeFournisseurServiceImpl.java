@@ -3,15 +3,15 @@ package com.damo.gestionDeStock.service.impl;
 import com.damo.gestionDeStock.dto.*;
 import com.damo.gestionDeStock.dto.CommandeFournisseurDto;
 import com.damo.gestionDeStock.dto.LigneCommandeFournisseurDto;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
-import com.damo.gestionDeStock.exception.InvalideOperationException;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
 import com.damo.gestionDeStock.model.*;
 import com.damo.gestionDeStock.repository.*;
 import com.damo.gestionDeStock.service.CommandeFournisseurService;
+import com.damo.gestionDeStock.service.MouveStkService;
 import com.damo.gestionDeStock.validator.ArticleValidator;
-import com.damo.gestionDeStock.validator.CommandeClientValidator;
 import com.damo.gestionDeStock.validator.CommandeFournisseurValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,23 +30,25 @@ import java.util.stream.Collectors;
 public class CommandeFournisseurServiceImpl implements CommandeFournisseurService {
 
 
-    private CommandeFournisseurRepository commandeFournisseurRepository;
+    private final CommandeFournisseurRepository commandeFournisseurRepository;
 
     private final FournisseurRepository fournisseurRepository;
 
     private final ArticleRepository articleRepository;
+    private final MouveStkService mouveStkService;
 
     private final LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository;
 
     @Autowired
     public CommandeFournisseurServiceImpl(CommandeFournisseurRepository commandeFournisseurRepository,
-                                     FournisseurRepository fournisseurRepository,
-                                     ArticleRepository articleRepository,
-                                     LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository) {
+                                          FournisseurRepository fournisseurRepository,
+                                          ArticleRepository articleRepository,
+                                          MouveStkService mouveStkService, LigneCommandeFournisseurRepository ligneCommandeFournisseurRepository) {
 
         this.commandeFournisseurRepository = commandeFournisseurRepository;
         this.fournisseurRepository = fournisseurRepository;
         this.articleRepository = articleRepository;
+        this.mouveStkService = mouveStkService;
         this.ligneCommandeFournisseurRepository = ligneCommandeFournisseurRepository;
     }
 
@@ -59,14 +62,14 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
         if (!errors.isEmpty()){
             log.error("Commande Fournisseur is not valid.");
             throw new InvalidEntityException("La commande du fournisseur n'est pas valide",
-                    ErrorCodes.COMMANDE_FOURNISSEUR_NOT_FOUND, errors);
+                    ErrorCodes.COMMANDE_FOURNISSEUR_NOT_VALID, errors);
         }
         // Si j'arrive à ce niveau, je suis sur que j'ai toutes les informations;
         //Ensuite je fait une validation métier
 
         Optional<Fournisseur> fournisseur = fournisseurRepository.findById(cmdFrsDto.getFournisseur().getId());
         if (fournisseur.isEmpty()){
-            log.warn("Client with ID {} is not valid" + cmdFrsDto.getFournisseur().getId());
+            log.warn("Fournisseur with ID {} was not found in the DB", cmdFrsDto.getFournisseur().getId());
             throw new EntityNotFoundException("Aucun fournisseur avec l'ID " + cmdFrsDto.getFournisseur().getId() + "n'a été trouvé dans la BDD",
                     ErrorCodes.FOURNISSEUR_NOT_FOUND);
         }
@@ -82,12 +85,12 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
 
                 //Je dois verifie que l'article n'est pas null;
 
-                if (ligCmdClt.getCommandeFournisseur() != null){
+                if (ligCmdClt.getArticle() != null){
                     Optional<Article> article = articleRepository.findById(ligCmdClt.getArticle().getId());
 
                     //Ici on essaie de chercher l'article par son ID
 
-                    if (articleErrors.isEmpty()){
+                    if (article.isEmpty()){
                         articleErrors.add("L'article avec l'ID" + ligCmdClt.getArticle().getId() + "n'existe pas.");
                     }
                     else {
@@ -105,13 +108,19 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
         //Ici c'est si les commande client sont valide
         //On enregistre les objets dans notre bdd
 
+        cmdFrsDto.setDateCommande(Instant.now());
         CommandeFournisseur saveCmdFrs = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(cmdFrsDto));
+        if (cmdFrsDto.getLignecommandeFournisseur() != null) {
 
-        cmdFrsDto.getLignecommandeFournisseur().forEach(ligCmdFrs ->{
+         cmdFrsDto.getLignecommandeFournisseur().forEach(ligCmdFrs ->{
             LigneCommandeFournisseur ligneCommandeFournisseur = LigneCommandeFournisseurDto.toEntity(ligCmdFrs);
             ligneCommandeFournisseur.setCommandeFournisseur(saveCmdFrs);
-            ligneCommandeFournisseurRepository.save(ligneCommandeFournisseur);
-        });
+            ligneCommandeFournisseur.setIdEntreprise(saveCmdFrs.getIdEntreprise());
+            LigneCommandeFournisseur saveLigne = ligneCommandeFournisseurRepository.save(ligneCommandeFournisseur);
+
+            effectuerEntree(saveLigne);
+         });
+        }
         return  CommandeFournisseurDto.fromEntity(saveCmdFrs);
     }
 
@@ -153,6 +162,16 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
 
     @Override
     public void deleteById(Integer id) {
+        if (id == null) {
+            log.error("Commande fournisseur ID is NULL");
+            return;
+        }
+
+        List<LigneCommandeFournisseur> ligneCommandeFournisseurs = ligneCommandeFournisseurRepository.findAllCommandeFournisseurById(id);
+        if (!ligneCommandeFournisseurs.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer une commande client deja utilisee",
+                    ErrorCodes.COMMANDE_CLIENT_ALREADY_IN_USE);
+        }
         commandeFournisseurRepository.deleteById(id);
     }
 
@@ -166,18 +185,16 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             log.error("L'etat de la commande fournisseur est null");
             throw new InvalideOperationException("Impossible de modifier l'etat de la commande avec un ID null", ErrorCodes.COMMANDE_FOURNISSEUR_NOT_FOUND);
         }
-        CommandeFournisseurDto commandeFournisseur = findById(idCommande);
-
-        if (commandeFournisseur.isCommandeLivree()) {
-            throw new InvalideOperationException("Impossible de modifier la commande lorsqu'elle est livrée.",
-                    ErrorCodes.COMMANDE_FOURNISSEUR_NON_MODIFIABLE);
-        }
-
+        CommandeFournisseurDto commandeFournisseur = checkEtatCommande(idCommande);
         commandeFournisseur.setEtatCommande(etatCommande);
 
-        return CommandeFournisseurDto.fromEntity(
-                commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseur)
-                ));
+        CommandeFournisseur savedCommande = commandeFournisseurRepository.save(CommandeFournisseurDto.toEntity(commandeFournisseur));
+        if (commandeFournisseur.isCommandeLivree()) {
+            updateMvtStk(idCommande);
+        }
+
+
+        return CommandeFournisseurDto.fromEntity(savedCommande);
     }
 
     @Override
@@ -326,5 +343,24 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
             throw new InvalideOperationException("Impossible de modifier l'etat de la commande avec un " + msg + "ID fournisseur null",
                     ErrorCodes.COMMANDE_FOURNISSEUR_NON_MODIFIABLE);
         }
+    }
+
+    private void updateMvtStk(Integer idCommande) {
+        List<LigneCommandeFournisseur> ligneCommandeFournisseur = ligneCommandeFournisseurRepository.findAllCommandeFournisseurById(idCommande);
+        ligneCommandeFournisseur.forEach(lig -> {
+            effectuerEntree(lig);
+        });
+    }
+
+    private void effectuerEntree(LigneCommandeFournisseur lig) {
+        MouveStockDto mouveStockDto = MouveStockDto.builder()
+                .article(ArticleDto.fromEntity(lig.getArticle()))
+                .dateMouveStock(Instant.now())
+                .typeMouveStk(TypeMouveStk.ENTREE)
+                .sourceMvt(SourceMvt.COMMANDE_FOURNISSEUR)
+                .quantite(lig.getQuantite())
+                .idEntreprise(lig.getIdEntreprise())
+                .build();
+        mouveStkService.entreeStock(mouveStockDto);
     }
 }

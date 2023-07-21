@@ -25,13 +25,14 @@ public class CommandeClient extends  AbstractEntity{
     private Instant dateCommande;
 
     @Column(name = "etatCommande")
+    @Enumerated(EnumType.STRING)
     private EtatCommande etatCommande;
 
     @ManyToOne
     @JoinColumn(name = "idclient")
     private Client client;
 
-    @OneToMany(mappedBy = "commandeClient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "commandeClient")
     private List<LigneCommandeClient> ligneCommandeClients;
 
 }

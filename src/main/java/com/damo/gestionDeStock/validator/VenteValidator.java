@@ -13,7 +13,6 @@ public class VenteValidator {
 
         if (venteDto == null) {
             errors.add("Veuillez renseigner le code de vente");
-            errors.add("Veuillez renseigner le le commentaire");
             errors.add("Veuillez renseigner la date de vente");
 
             return errors;
@@ -21,9 +20,6 @@ public class VenteValidator {
 
         if (!StringUtils.hasLength(venteDto.getCode())){
             errors.add("Veuillez renseigner le code de vente");
-        }
-        if (!StringUtils.hasLength(venteDto.getCommantaire())){
-            errors.add("Veuillez renseigner le le commentaire");
         }
         if (venteDto.getDateVente() == null){
             errors.add("Veuillez renseigner la date de vente");

@@ -1,12 +1,12 @@
 package com.damo.gestionDeStock.dto;
 
 import com.damo.gestionDeStock.model.Utilisateur;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -18,9 +18,9 @@ public class UtilisateurDto {
 
     private String prenom;
 
-    private String mail;
+    private String email;
 
-    private Instant datenaissance;
+    private Instant dateDeNaissance;
 
     private String motDePasse;
 
@@ -30,63 +30,49 @@ public class UtilisateurDto {
 
     private String photo;
 
-    @JsonIgnore
     private List<RolesDto> roles;
-
-    private Integer idEntreprise;
-
 
     public static UtilisateurDto fromEntity(Utilisateur utilisateur) {
         if (utilisateur == null) {
             return null;
-            // Todo throw an Exception
         }
+
         return UtilisateurDto.builder()
                 .id(utilisateur.getId())
                 .nom(utilisateur.getNom())
                 .prenom(utilisateur.getPrenom())
-                .adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
-                .entreprise(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
-                .idEntreprise(utilisateur.getIdEntreprise())
+                .email(utilisateur.getEmail())
                 .motDePasse(utilisateur.getMotDePasse())
+                .dateDeNaissance(utilisateur.getDateDeNaissance())
+                .adresse(AdresseDto.fromEntity(utilisateur.getAdresse()))
                 .photo(utilisateur.getPhoto())
-                .mail(utilisateur.getMail())
-                .datenaissance(utilisateur.getDatenaissance())
+                .entreprise(EntrepriseDto.fromEntity(utilisateur.getEntreprise()))
+                .roles(
+                        utilisateur.getRoles() != null ?
+                                utilisateur.getRoles().stream()
+                                        .map(RolesDto::fromEntity)
+                                        .collect(Collectors.toList()) : null
+                )
                 .build();
     }
 
-    public static Utilisateur toEntity(UtilisateurDto utilisateurDto) {
-        if (utilisateurDto == null) {
+    public static Utilisateur toEntity(UtilisateurDto dto) {
+        if (dto == null) {
             return null;
-            // Todo throw an Exception
         }
 
         Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(dto.getId());
+        utilisateur.setNom(dto.getNom());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setEmail(dto.getEmail());
+        utilisateur.setMotDePasse(dto.getMotDePasse());
+        utilisateur.setDateDeNaissance(dto.getDateDeNaissance());
+        utilisateur.setAdresse(AdresseDto.toEntity(dto.getAdresse()));
+        utilisateur.setPhoto(dto.getPhoto());
+        utilisateur.setEntreprise(EntrepriseDto.toEntity(dto.getEntreprise()));
 
-        utilisateur.setNom(utilisateurDto.getNom());
-        utilisateur.setPrenom(utilisateurDto.getPrenom());
-        utilisateur.setPhoto(utilisateurDto.getPhoto());
-        utilisateur.setMail(utilisateurDto.getMail());
-        utilisateur.setDatenaissance(utilisateurDto.getDatenaissance());
-        utilisateur.setIdEntreprise(utilisateurDto.getIdEntreprise());
         return utilisateur;
-    }
-
-    public static UtilisateurDto fromEntreprise(EntrepriseDto savedEntreprise) {
-        return UtilisateurDto.builder()
-                .adresse(savedEntreprise.getAdresse())
-                .nom(savedEntreprise.getNom())
-                .prenom(savedEntreprise.getCodeFiscale())
-                .mail(savedEntreprise.getEmail())
-                .motDePasse(generateRandomPassword())
-                .entreprise(savedEntreprise)
-                .datenaissance(Instant.now())
-                .photo(savedEntreprise.getPhoto())
-                .build();
-    }
-
-    private static String generateRandomPassword(){
-        return "som3R@nd0mP@$$word";
     }
 
 }

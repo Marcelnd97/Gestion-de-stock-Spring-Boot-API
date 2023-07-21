@@ -35,7 +35,7 @@ public class ArticleValidator {
         if (articleDto.getTauxTVA() == null){
             errors.add("Veuillez renseigner le taux TVA de l'article.");
         }
-        if (articleDto.getCategory() == null){
+        if (articleDto.getCategory() == null || articleDto.getCategory().getId() == null){
             errors.add("Veuillez séléctionner une category.");
         }
 

@@ -1,6 +1,5 @@
 package com.damo.gestionDeStock.repository;
 
-import com.damo.gestionDeStock.dto.UtilisateurDto;
 import com.damo.gestionDeStock.model.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +11,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Intege
 
 
     //JPQL query
-    @Query(value = "select u from Utilisateur u where u.mail = :mail")
-    Optional<Utilisateur> findUtilisateurByMail(@Param("mail") String mail);
+    @Query(value = "select u from Utilisateur u where u.email = :email")
+    Optional<Utilisateur> findUtilisateurByEmail(@Param("email") String email);
+
 }

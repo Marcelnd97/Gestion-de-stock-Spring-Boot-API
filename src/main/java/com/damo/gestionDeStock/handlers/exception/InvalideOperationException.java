@@ -1,4 +1,4 @@
-package com.damo.gestionDeStock.exception;
+package com.damo.gestionDeStock.handlers.exception;
 
 import lombok.Getter;
 

@@ -1,12 +1,13 @@
 package com.damo.gestionDeStock.service.impl;
 
-import com.damo.gestionDeStock.dto.EntrepriseDto;
 import com.damo.gestionDeStock.dto.FournisseurDto;
-import com.damo.gestionDeStock.exception.EntityNotFoundException;
-import com.damo.gestionDeStock.exception.ErrorCodes;
-import com.damo.gestionDeStock.exception.InvalidEntityException;
-import com.damo.gestionDeStock.model.Entreprise;
+import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.InvalidEntityException;
+import com.damo.gestionDeStock.handlers.exception.InvalideOperationException;
+import com.damo.gestionDeStock.model.CommandeFournisseur;
 import com.damo.gestionDeStock.model.Fournisseur;
+import com.damo.gestionDeStock.repository.CommandeFournisseurRepository;
 import com.damo.gestionDeStock.repository.FournisseurRepository;
 import com.damo.gestionDeStock.service.FournisseurService;
 import com.damo.gestionDeStock.validator.FournisseurValidator;
@@ -24,10 +25,12 @@ public class FournisseurServiceImpl implements FournisseurService {
 
 
     private FournisseurRepository fournisseurRepository;
+    private CommandeFournisseurRepository commandeFournisseurRepository;
 
     @Autowired
-    public FournisseurServiceImpl(FournisseurRepository fournisseurRepository){
+    public FournisseurServiceImpl(FournisseurRepository fournisseurRepository, CommandeFournisseurRepository commandeFournisseurRepository){
         this.fournisseurRepository = fournisseurRepository;
+        this.commandeFournisseurRepository = commandeFournisseurRepository;
     }
 
     @Override
@@ -37,7 +40,8 @@ public class FournisseurServiceImpl implements FournisseurService {
 
         if (!errors.isEmpty()){
             log.error("Fournisseur is not valid {}", fournisDto);
-            throw  new InvalidEntityException("Le fournisseur n'est pas valide", ErrorCodes.FOURNISSEUR_NOT_FOUND);
+            throw  new InvalidEntityException("Le fournisseur n'est pas valide",
+                    ErrorCodes.FOURNISSEUR_NOT_VALID);
         }
 
         return FournisseurDto.fromEntity(fournisseurRepository.save(FournisseurDto.toEntity(fournisDto)));
@@ -70,8 +74,13 @@ public class FournisseurServiceImpl implements FournisseurService {
             log.error("Fournisseur ID is not valid");
             return;
         }
+        List<CommandeFournisseur> commandeFournisseur = commandeFournisseurRepository.findAllByFournisseurId(id);
+        if (!commandeFournisseur.isEmpty()) {
+            throw new InvalideOperationException("Impossible de supprimer un fournisseur qui a deja des commandes",
+                    ErrorCodes.FOURNISSEUR_ALREADY_IN_USE);
+        }
 
-        fournisseurRepository.findById(id);
+        fournisseurRepository.deleteById(id);
 
     }
 }

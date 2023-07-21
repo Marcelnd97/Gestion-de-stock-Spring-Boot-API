@@ -26,7 +26,7 @@ public class Ventes extends AbstractEntity{
     @Column(name = "identreprise")
     private Integer idEntreprise;
 
-    @OneToMany(mappedBy = "vente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vente")
     private List<LigneVente> ligneVentes;
 
 }

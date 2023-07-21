@@ -18,7 +18,8 @@ public class CommandeFournisseur extends  AbstractEntity{
     private String code;
 
     @Column(name = "etatCommande")
-    private EtatCommande etatCommane;
+    @Enumerated(EnumType.STRING)
+    private EtatCommande etatCommande;
 
     @Column(name = "identreprise")
     private Integer idEntreprise;
@@ -30,6 +31,6 @@ public class CommandeFournisseur extends  AbstractEntity{
     @JoinColumn(name = "idfournisseur")
     private Fournisseur fournisseur;
 
-    @OneToMany(mappedBy = "commandeFournisseur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "commandeFournisseur")
     private List<LigneCommandeFournisseur> lignecommandeFournisseur;
 }

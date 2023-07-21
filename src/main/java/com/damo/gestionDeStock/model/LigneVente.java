@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 @Table(name = "ligneVente")
 public class LigneVente extends AbstractEntity{
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "idvente")
     private Ventes vente;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "idarticle")
     private Article article;
 

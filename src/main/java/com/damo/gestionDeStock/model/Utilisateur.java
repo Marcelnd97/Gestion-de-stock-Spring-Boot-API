@@ -1,6 +1,8 @@
 package com.damo.gestionDeStock.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.Instant;
@@ -14,17 +16,17 @@ import java.util.List;
 @Table(name = "utilisateur")
 public class Utilisateur extends AbstractEntity{
 
-    @Column(name = "code")
+    @Column(name = "nom")
     private String nom;
 
     @Column(name = "prenom")
     private String prenom;
 
-    @Column(name = "mail")
-    private String mail;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "datenaissance")
-    private Instant datenaissance;
+    @Column(name = "datedenaissance")
+    private Instant dateDeNaissance;
 
     @Column(name = "motdepasse")
     private String motDePasse;
@@ -35,14 +37,12 @@ public class Utilisateur extends AbstractEntity{
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "entreprise")
-    private Integer idEntreprise;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idEntreprise")
+    @ManyToOne
+    @JoinColumn(name = "identreprise")
     private Entreprise entreprise;
 
-    @OneToMany(mappedBy = "utilisateur")
-    private List<Roles> rolesList;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
+    @JsonIgnore
+    private List<Roles> roles;
 
 }

@@ -9,7 +9,7 @@ import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
 
 
 import java.util.List;
-@Api(APP_ROOT + "/category")
+@Api("category")
 public interface CategoryApi {
 
     @PostMapping(value = APP_ROOT + "/category/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

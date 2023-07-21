@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class ArticleDto {
+public class
+ArticleDto {
 
     private Integer id;
 
@@ -27,7 +28,7 @@ public class ArticleDto {
 
     private CategoryDto category;
 
-//    private Integer idEntreprise;
+    private Integer idEntreprise;
 
     public static ArticleDto fromEntity(Article article) {
 
@@ -44,7 +45,7 @@ public class ArticleDto {
                 .prixUnitaireTTC(article.getPrixUnitaireTTC())
                 .photo(article.getPhoto())
                 .category(CategoryDto.fromEntity(article.getCategory()))
-//                .idEntreprise(article.getIdEntreprise())
+                .idEntreprise(article.getIdEntreprise())
                 .build();
     }
 
@@ -62,7 +63,8 @@ public class ArticleDto {
         article.setTauxTVA(articleDto.getTauxTVA());
         article.setPrixUnitaireTTC(articleDto.getPrixUnitaireTTC());
         article.setPhoto(articleDto.getPhoto());
-//        article.setIdEntreprise(article.getIdEntreprise());
+        article.setIdEntreprise(articleDto.getIdEntreprise());
+        article.setCategory(CategoryDto.toEntity(articleDto.getCategory()));
         return article;
     }
 }

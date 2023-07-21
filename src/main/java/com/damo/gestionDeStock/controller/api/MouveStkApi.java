@@ -5,22 +5,30 @@ import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
 
-@Api(APP_ROOT + "/mouveStock")
+@Api("mouveStock")
 public interface MouveStkApi {
 
-    @PostMapping(value = "/mouveStock/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    MouveStockDto save(@RequestBody MouveStockDto mouveStk);
+    @GetMapping(APP_ROOT + "/mouveStock/stockreel/{idArticle}")
+    BigDecimal stockReelArticle(@PathVariable("idArticle") Integer idArticle);
 
-    @GetMapping(value = APP_ROOT + "/mouveStock/{idmouvestock}", produces = MediaType.APPLICATION_JSON_VALUE)
-    MouveStockDto findById(@PathVariable("idmouvestock") Integer id);
+    @GetMapping(APP_ROOT + "/mouveStock/filter/article/{idArticle}")
+    List<MouveStockDto> mvtStkArticle(@PathVariable("idArticle") Integer idArticle);
 
-    @GetMapping(value = APP_ROOT + "/mouveStock/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<MouveStockDto> findAll();
+    @PostMapping(APP_ROOT + "/mouveStock/entree")
+    MouveStockDto entreeStock(@RequestBody MouveStockDto dto);
 
-    @DeleteMapping(value = APP_ROOT + "/mouveStock/delete/{idmouvestock}", produces = MediaType.APPLICATION_JSON_VALUE)
-    void delete(@PathVariable("idmouvestock") Integer id);
+    @PostMapping(APP_ROOT + "/mouveStock/sortie")
+    MouveStockDto sortieStock(@RequestBody MouveStockDto dto);
+
+    @PostMapping(APP_ROOT + "/mouveStock/correctionpos")
+    MouveStockDto correctionStockPos(@RequestBody MouveStockDto dto);
+
+    @PostMapping(APP_ROOT + "/mouveStock/correctionneg")
+    MouveStockDto correctionStockNeg(@RequestBody MouveStockDto dto);
+
 }

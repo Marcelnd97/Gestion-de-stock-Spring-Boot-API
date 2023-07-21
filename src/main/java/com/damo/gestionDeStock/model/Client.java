@@ -38,6 +38,6 @@ public class Client extends AbstractEntity{
     @Column(name = "numTel")
     private String numTel;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client")
     private List<CommandeClient>  commandeClients;
 }

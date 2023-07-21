@@ -13,7 +13,7 @@ import java.util.List;
 
 import static com.damo.gestionDeStock.utils.Constants.*;
 
-@Api(COMMANDE_FOURNISSEUR_ENDPOINT)
+@Api("commandefournisseur")
 public interface CommandeFournisseurApi {
 
     @PostMapping(CREATE_COMMANDEFOURNISSEUR_ENDPOINT)

@@ -55,12 +55,14 @@ public class ClientDto {
         }
 
         Client client = new Client();
+        client.setId(clientDto.getId());
         client.setNom(clientDto.getNom());
         client.setPrenom(clientDto.getPrenom());
+        client.setAdresse(AdresseDto.toEntity(clientDto.getAdresse()));
         client.setPhoto(clientDto.getPhoto());
         client.setMail(clientDto.getMail());
         client.setNumTel(clientDto.getNumTel());
-        client.setIdEntreprise(client.getIdEntreprise());
+        client.setIdEntreprise(clientDto.getIdEntreprise());
         return client;
     }
 }

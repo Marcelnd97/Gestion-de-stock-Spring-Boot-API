@@ -10,18 +10,34 @@ import java.util.Collection;
 
 public class ExtendedUser extends User {
 
+//    @Getter
+//    @Setter
+//
+//    private Integer IdEntreprise;
+//
+//    public ExtendedUser(String username, String password,
+//                        Collection<? extends GrantedAuthority> authorities){
+//        super(username, password, authorities);
+//    }
+//    public ExtendedUser(String username, String password, Integer idEntreprise,
+//                        Collection<? extends GrantedAuthority> authorities) {
+//        super(username, password, authorities);
+//        this.IdEntreprise = idEntreprise;
+//    }
+
     @Getter
     @Setter
-
-    private Integer IdEntreprise;
+    private Integer idEntreprise;
 
     public ExtendedUser(String username, String password,
-                        Collection<? extends GrantedAuthority> authorities){
+                        Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
+
     public ExtendedUser(String username, String password, Integer idEntreprise,
                         Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
-        this.IdEntreprise = idEntreprise;
+        this.idEntreprise = idEntreprise;
     }
+
 }

@@ -14,11 +14,11 @@ import java.util.List;
 @Table(name = "ligneCommandeFournisseur")
 public class LigneCommandeFournisseur extends AbstractEntity{
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "idarticle")
     private Article article;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "idcommandefournisseur")
     private CommandeFournisseur commandeFournisseur;
 

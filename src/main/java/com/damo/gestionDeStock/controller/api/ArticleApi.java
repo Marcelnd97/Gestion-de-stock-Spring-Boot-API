@@ -15,7 +15,7 @@ import static com.damo.gestionDeStock.utils.Constants.APP_ROOT;
 
 import java.util.List;
 
-@Api(APP_ROOT + "/articles")
+@Api("articles")
 public interface ArticleApi {
 
     @PostMapping(value = APP_ROOT + "/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

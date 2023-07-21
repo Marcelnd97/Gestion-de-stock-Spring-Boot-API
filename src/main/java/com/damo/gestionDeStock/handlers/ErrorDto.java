@@ -1,6 +1,6 @@
 package com.damo.gestionDeStock.handlers;
 
-import com.damo.gestionDeStock.exception.ErrorCodes;
+import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
 import lombok.*;
 
 import java.util.ArrayList;
