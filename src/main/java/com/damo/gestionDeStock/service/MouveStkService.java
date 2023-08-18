@@ -1,5 +1,6 @@
 package com.damo.gestionDeStock.service;
 
+import com.damo.gestionDeStock.dto.ArticleDto;
 import com.damo.gestionDeStock.dto.MouveStockDto;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,5 @@ public interface MouveStkService {
     MouveStockDto correctionStockPos(MouveStockDto dto);
     MouveStockDto correctionStockNeg(MouveStockDto dto);
     List<MouveStockDto> mvtStkArticle(Integer idArticle);
+    List<MouveStockDto> findAllMouveStock();
 }

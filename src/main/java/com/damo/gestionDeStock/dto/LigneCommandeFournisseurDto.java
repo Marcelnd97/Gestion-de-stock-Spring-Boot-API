@@ -1,5 +1,6 @@
 package com.damo.gestionDeStock.dto;
 
+import com.damo.gestionDeStock.model.CommandeFournisseur;
 import com.damo.gestionDeStock.model.LigneCommandeClient;
 import com.damo.gestionDeStock.model.LigneCommandeFournisseur;
 import lombok.Builder;
@@ -15,7 +16,7 @@ public class LigneCommandeFournisseurDto {
 
     private ArticleDto article;
 
-    private CommandeFournisseurDto commandeFournisseur;
+    private CommandeFournisseur commandeFournisseur;
 
     private BigDecimal quantite;
 
@@ -26,29 +27,27 @@ public class LigneCommandeFournisseurDto {
     public static LigneCommandeFournisseurDto fromEntity(LigneCommandeFournisseur ligneCommandeFournisseur) {
         if (ligneCommandeFournisseur == null) {
             return null;
-            // Todo throw an Exception
         }
-
         return LigneCommandeFournisseurDto.builder()
                 .id(ligneCommandeFournisseur.getId())
+                .article(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
                 .quantite(ligneCommandeFournisseur.getQuantite())
                 .prixUnitaire(ligneCommandeFournisseur.getPrixUnitaire())
-                .article(ArticleDto.fromEntity(ligneCommandeFournisseur.getArticle()))
-                .commandeFournisseur(CommandeFournisseurDto.fromEntity(ligneCommandeFournisseur.getCommandeFournisseur()))
                 .idEntreprise(ligneCommandeFournisseur.getIdEntreprise())
                 .build();
     }
 
-    public static LigneCommandeFournisseur toEntity(LigneCommandeFournisseurDto ligneCommandeFournisseurDto) {
-        if (ligneCommandeFournisseurDto == null) {
+    public static LigneCommandeFournisseur toEntity(LigneCommandeFournisseurDto dto) {
+        if (dto == null) {
             return null;
-            // Todo throw an Exception
         }
+
         LigneCommandeFournisseur ligneCommandeFournisseur = new LigneCommandeFournisseur();
-        ligneCommandeFournisseur.setId(ligneCommandeFournisseurDto.getId());
-        ligneCommandeFournisseur.setQuantite(ligneCommandeFournisseurDto.getQuantite());
-        ligneCommandeFournisseur.setPrixUnitaire(ligneCommandeFournisseurDto.getPrixUnitaire());
-        ligneCommandeFournisseur.setIdEntreprise(ligneCommandeFournisseur.getIdEntreprise());
+        ligneCommandeFournisseur.setId(dto.getId());
+        ligneCommandeFournisseur.setArticle(ArticleDto.toEntity(dto.getArticle()));
+        ligneCommandeFournisseur.setPrixUnitaire(dto.getPrixUnitaire());
+        ligneCommandeFournisseur.setQuantite(dto.getQuantite());
+        ligneCommandeFournisseur.setIdEntreprise(dto.getIdEntreprise());
         return ligneCommandeFournisseur;
     }
 }

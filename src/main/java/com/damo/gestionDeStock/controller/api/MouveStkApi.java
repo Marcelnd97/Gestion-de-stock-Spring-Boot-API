@@ -1,5 +1,6 @@
 package com.damo.gestionDeStock.controller.api;
 
+import com.damo.gestionDeStock.dto.CategoryDto;
 import com.damo.gestionDeStock.dto.MouveStockDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
@@ -30,5 +31,8 @@ public interface MouveStkApi {
 
     @PostMapping(APP_ROOT + "/mouveStock/correctionneg")
     MouveStockDto correctionStockNeg(@RequestBody MouveStockDto dto);
+
+    @GetMapping(value = APP_ROOT + "/mouveStock/findAllMvstk")
+    List<MouveStockDto> findAllMouveStock();
 
 }

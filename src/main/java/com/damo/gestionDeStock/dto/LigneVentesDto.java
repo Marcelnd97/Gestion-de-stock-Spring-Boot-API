@@ -48,7 +48,7 @@ public class LigneVentesDto {
         ligneVente.setId(ligneVenteDto.getId());
         ligneVente.setQuantite(ligneVenteDto.getQuantite());
         ligneVente.setPrixUnitaire(ligneVenteDto.getPrixUnitaire());
-        ligneVente.setIdEntreprise(ligneVente.getIdEntreprise());
+        ligneVente.setIdEntreprise(ligneVenteDto.getIdEntreprise());
         return ligneVente;
     }
 }

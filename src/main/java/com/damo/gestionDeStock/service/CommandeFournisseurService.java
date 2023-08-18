@@ -14,18 +14,27 @@ import java.util.List;
 @Repository
 public interface CommandeFournisseurService {
 
-    CommandeFournisseurDto save(CommandeFournisseurDto cmdFrsDto);
+    CommandeFournisseurDto save(CommandeFournisseurDto dto);
+
     CommandeFournisseurDto updateEtatCommande(Integer idCommande, EtatCommande etatCommande);
-    CommandeFournisseurDto updateQuantiteCommande(Integer idCommande, Integer idLigneCommande, BigDecimal quantity);
 
-    //Delete article ==> delete ligne de commande
+    CommandeFournisseurDto updateQuantiteCommande(Integer idCommande, Integer idLigneCommande, BigDecimal quantite);
 
-    CommandeFournisseurDto deleteArticle(Integer idCommande, Integer idLigneCommande);
-    CommandeFournisseurDto updateArticle(Integer idCommande, Integer idLigneCommande, Integer idArticle);
     CommandeFournisseurDto updateFournisseur(Integer idCommande, Integer idFournisseur);
+
+    CommandeFournisseurDto updateArticle(Integer idCommande, Integer idLigneCommande, Integer idArticle);
+
+    // Delete article ==> delete LigneCommandeFournisseur
+    CommandeFournisseurDto deleteArticle(Integer idCommande, Integer idLigneCommande);
+
     CommandeFournisseurDto findById(Integer id);
-    CommandeFournisseurDto findComFrsByCode(String codeComFrs);
+
+    CommandeFournisseurDto findByCode(String code);
+
     List<CommandeFournisseurDto> findAll();
-    List<LigneCommandeFournisseurDto> findAllLineCommandeFournisseurByIdCommande(Integer idCommande);
-    void deleteById(Integer id);
+
+    List<LigneCommandeFournisseurDto> findAllLignesCommandesFournisseurByCommandeFournisseurId(Integer idCommande);
+
+    void delete(Integer id);
+
 }

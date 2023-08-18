@@ -17,20 +17,22 @@ public class CommandeFournisseur extends  AbstractEntity{
     @Column(name = "code")
     private String code;
 
-    @Column(name = "etatCommande")
+    @Column(name = "datecommande")
+    private Instant dateCommande;
+
+    @Column(name = "etatcommande")
     @Enumerated(EnumType.STRING)
     private EtatCommande etatCommande;
 
     @Column(name = "identreprise")
     private Integer idEntreprise;
 
-    @Column(name = "datecommande")
-    private Instant dateCommande;
-
     @ManyToOne
     @JoinColumn(name = "idfournisseur")
     private Fournisseur fournisseur;
 
     @OneToMany(mappedBy = "commandeFournisseur")
-    private List<LigneCommandeFournisseur> lignecommandeFournisseur;
+    private List<LigneCommandeFournisseur> ligneCommandeFournisseurs;
+
+
 }

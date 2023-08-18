@@ -58,7 +58,7 @@ public class CommandeClientController implements CommandeClientApi {
     }
 
     @Override
-    public ResponseEntity<List<LigneCommandeClientDto>> findAllCommandeClientByIdCommandeClient(Integer idCommande) {
+    public ResponseEntity<List<LigneCommandeClientDto>> findAllLignesCommandeClientByIdCommandeClient(Integer idCommande) {
         return ResponseEntity.ok(commandeClientService.findAllLineCommandeClientByIdCommandeClient(idCommande));
     }
 

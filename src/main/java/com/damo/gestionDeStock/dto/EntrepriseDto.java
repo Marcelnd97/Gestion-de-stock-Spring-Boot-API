@@ -11,66 +11,6 @@ import java.util.List;
 @Builder
 public class EntrepriseDto {
 
-//    private Integer id;
-//
-//    private String nom;
-//
-//    private String description;
-//
-//    private AdresseDto adresse;
-//
-//    private String codeFiscale;
-//
-//    private String photo;
-//
-//    private String mail;
-//
-//    private String numTel;
-//
-//    private String siteWeb;
-//
-//    @JsonIgnore
-//    private List<UtilisateurDto> utilisateur;
-//
-//    public static EntrepriseDto fromEntity(Entreprise entreprise) {
-//        if (entreprise == null) {
-//            return null;
-//            // Todo throw an Exception
-//        }
-//
-//        return EntrepriseDto.builder()
-//                .id(entreprise.getId())
-//                .nom(entreprise.getNom())
-//                .description(entreprise.getDescription())
-//                .adresse(AdresseDto.fromEntity(entreprise.getAdresse()))
-//                .codeFiscale(entreprise.getCodeFiscale())
-//                .photo(entreprise.getPhoto())
-//                .mail(entreprise.getMail())
-//                .numTel(entreprise.getNumTel())
-//                .siteWeb(entreprise.getSiteWeb())
-//                .build();
-//    }
-//
-//    public static Entreprise toEntity(EntrepriseDto entrepriseDto) {
-//        if (entrepriseDto == null) {
-//            return null;
-//            // Todo throw an Exception
-//        }
-//        Entreprise entreprise = new Entreprise();
-//
-//        entreprise.setId(entrepriseDto.getId());
-//        entreprise.setNom(entrepriseDto.getNom());
-//        entreprise.setDescription(entrepriseDto.getDescription());
-//        entreprise.setCodeFiscale(entrepriseDto.getCodeFiscale());
-//        entreprise.setPhoto(entrepriseDto.getPhoto());
-//        entreprise.setMail(entrepriseDto.getMail());
-//        entreprise.setNumTel(entrepriseDto.getNumTel());
-//        entreprise.setSiteWeb(entrepriseDto.getSiteWeb());
-//
-//        return entreprise;
-//    }
-
-
     private Integer id;
 
     private String nom;

@@ -46,6 +46,7 @@ public class ClientDto {
                 .numTel(client.getNumTel())
                 .idEntreprise(client.getIdEntreprise())
                 .build();
+
     }
 
     public static Client toEntity(ClientDto clientDto) {
@@ -55,6 +56,7 @@ public class ClientDto {
         }
 
         Client client = new Client();
+
         client.setId(clientDto.getId());
         client.setNom(clientDto.getNom());
         client.setPrenom(clientDto.getPrenom());
@@ -64,5 +66,6 @@ public class ClientDto {
         client.setNumTel(clientDto.getNumTel());
         client.setIdEntreprise(clientDto.getIdEntreprise());
         return client;
+
     }
 }

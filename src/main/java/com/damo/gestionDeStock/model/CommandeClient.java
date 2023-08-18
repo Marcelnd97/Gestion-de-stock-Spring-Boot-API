@@ -18,21 +18,21 @@ public class CommandeClient extends  AbstractEntity{
     @Column(name = "code")
     private String code;
 
+    @Column(name = "etatCommande")
+    @Enumerated(EnumType.STRING)
+    private EtatCommande etatCommande;
+
     @Column(name = "identreprise")
     private Integer idEntreprise;
 
     @Column(name = "datecommande")
     private Instant dateCommande;
 
-    @Column(name = "etatCommande")
-    @Enumerated(EnumType.STRING)
-    private EtatCommande etatCommande;
-
     @ManyToOne
     @JoinColumn(name = "idclient")
     private Client client;
 
     @OneToMany(mappedBy = "commandeClient")
-    private List<LigneCommandeClient> ligneCommandeClients;
+    private List<LigneCommandeClient> lignecommandeClients;
 
 }

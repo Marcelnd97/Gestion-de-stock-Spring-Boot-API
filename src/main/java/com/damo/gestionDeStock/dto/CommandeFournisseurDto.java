@@ -17,47 +17,46 @@ public class CommandeFournisseurDto {
 
     private String code;
 
-    private EtatCommande etatCommande;
-
     private Instant dateCommande;
+
+    private EtatCommande etatCommande;
 
     private FournisseurDto fournisseur;
 
     private Integer idEntreprise;
 
-    private List<LigneCommandeFournisseurDto> lignecommandeFournisseur;
+    private List<LigneCommandeFournisseurDto> ligneCommandeFournisseurs;
 
     public static CommandeFournisseurDto fromEntity(CommandeFournisseur commandeFournisseur) {
         if (commandeFournisseur == null) {
             return null;
-            // Todo throw an Exception
         }
-
         return CommandeFournisseurDto.builder()
                 .id(commandeFournisseur.getId())
                 .code(commandeFournisseur.getCode())
-                .etatCommande(commandeFournisseur.getEtatCommande())
                 .dateCommande(commandeFournisseur.getDateCommande())
                 .fournisseur(FournisseurDto.fromEntity(commandeFournisseur.getFournisseur()))
+                .etatCommande(commandeFournisseur.getEtatCommande())
                 .idEntreprise(commandeFournisseur.getIdEntreprise())
                 .build();
     }
 
-    public static CommandeFournisseur toEntity(CommandeFournisseurDto commandeFournisseurDto) {
-        if (commandeFournisseurDto == null) {
+    public static CommandeFournisseur toEntity(CommandeFournisseurDto dto) {
+        if (dto == null) {
             return null;
-            // Todo throw an Exception
         }
         CommandeFournisseur commandeFournisseur = new CommandeFournisseur();
-        commandeFournisseur.setId(commandeFournisseurDto.getId());
-        commandeFournisseur.setCode(commandeFournisseurDto.getCode());
-        commandeFournisseur.setEtatCommande(commandeFournisseur.getEtatCommande());
-        commandeFournisseur.setDateCommande(commandeFournisseurDto.getDateCommande());
-        commandeFournisseur.setIdEntreprise(commandeFournisseur.getIdEntreprise());
+        commandeFournisseur.setId(dto.getId());
+        commandeFournisseur.setCode(dto.getCode());
+        commandeFournisseur.setDateCommande(dto.getDateCommande());
+        commandeFournisseur.setFournisseur(FournisseurDto.toEntity(dto.getFournisseur()));
+        commandeFournisseur.setIdEntreprise(dto.getIdEntreprise());
+        commandeFournisseur.setEtatCommande(dto.getEtatCommande());
         return commandeFournisseur;
     }
 
-    public Boolean isCommandeLivree(){
+    public boolean isCommandeLivree() {
         return EtatCommande.LIVREE.equals(this.etatCommande);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.damo.gestionDeStock.service.impl;
 
+import com.damo.gestionDeStock.dto.ArticleDto;
 import com.damo.gestionDeStock.dto.MouveStockDto;
 import com.damo.gestionDeStock.handlers.exception.EntityNotFoundException;
 import com.damo.gestionDeStock.handlers.exception.ErrorCodes;
@@ -68,6 +69,13 @@ public class MouveStkServiceImpl implements MouveStkService {
     @Override
     public List<MouveStockDto> mvtStkArticle(Integer idArticle) {
         return mvtStockRepository.findAllByArticleId(idArticle).stream()
+                .map(MouveStockDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MouveStockDto> findAllMouveStock() {
+        return mvtStockRepository.findAll().stream()
                 .map(MouveStockDto::fromEntity)
                 .collect(Collectors.toList());
     }

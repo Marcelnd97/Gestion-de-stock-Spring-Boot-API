@@ -18,6 +18,8 @@ ArticleDto {
 
     private String designation;
 
+    private BigDecimal totalStock;
+
     private BigDecimal prixUnitaireHT;
 
     private BigDecimal tauxTVA;
@@ -40,6 +42,7 @@ ArticleDto {
                 .id(article.getId())
                 .codeArticle(article.getCodeArticle())
                 .designation(article.getDesignation())
+                .totalStock(article.getTotalStock())
                 .prixUnitaireHT(article.getPrixUnitaireHT())
                 .tauxTVA(article.getTauxTVA())
                 .prixUnitaireTTC(article.getPrixUnitaireTTC())
@@ -59,6 +62,7 @@ ArticleDto {
         article.setId(articleDto.getId());
         article.setCodeArticle(articleDto.getCodeArticle());
         article.setDesignation(articleDto.getDesignation());
+        article.setTotalStock(articleDto.getTotalStock());
         article.setPrixUnitaireHT(articleDto.getPrixUnitaireHT());
         article.setTauxTVA(articleDto.getTauxTVA());
         article.setPrixUnitaireTTC(articleDto.getPrixUnitaireTTC());

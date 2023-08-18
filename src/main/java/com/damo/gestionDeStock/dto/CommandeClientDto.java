@@ -1,9 +1,6 @@
 package com.damo.gestionDeStock.dto;
 
-import com.damo.gestionDeStock.model.Client;
-import com.damo.gestionDeStock.model.CommandeClient;
-import com.damo.gestionDeStock.model.EtatCommande;
-import com.damo.gestionDeStock.model.LigneCommandeClient;
+import com.damo.gestionDeStock.model.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
@@ -57,7 +54,7 @@ public class CommandeClientDto {
         commandeClient.setDateCommande(commandeClientDto.getDateCommande());
         commandeClient.setEtatCommande(commandeClientDto.getEtatCommande());
         commandeClient.setClient(ClientDto.toEntity(commandeClientDto.getClient()));
-        commandeClient.setIdEntreprise(commandeClient.getIdEntreprise());
+        commandeClient.setIdEntreprise(commandeClientDto.getIdEntreprise());
         return commandeClient;
     }
     public Boolean isCommandeLivree(){

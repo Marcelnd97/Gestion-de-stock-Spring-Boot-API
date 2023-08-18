@@ -1,6 +1,7 @@
 package com.damo.gestionDeStock.controller;
 
 import com.damo.gestionDeStock.controller.api.MouveStkApi;
+import com.damo.gestionDeStock.dto.ArticleDto;
 import com.damo.gestionDeStock.dto.MouveStockDto;
 import com.damo.gestionDeStock.service.MouveStkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class MouveStkController implements MouveStkApi {
     @Override
     public List<MouveStockDto> mvtStkArticle(Integer idArticle) {
         return mouveStkService.mvtStkArticle(idArticle);
+    }
+
+    @Override
+    public List<MouveStockDto> findAllMouveStock() {
+        return mouveStkService.findAllMouveStock();
     }
 
     @Override
