@@ -1,0 +1,39 @@
+{
+  "statistiques": [
+    {
+      "name": "Catégorie",
+      "amount": 5000,
+      "colorCode": "green"
+    },
+    {
+      "name": "Article",
+      "amount": 2000,
+      "colorCode": "mediumpurple"
+    },
+    {
+      "name": "Client",
+      "amount": 6500,
+      "colorCode": "blue"
+    },
+    {
+      "name": "CMDClient",
+      "amount": 3000,
+      "colorCode": "pink"
+    },
+    {
+      "name": "Fournisseur",
+      "amount": 4000,
+      "colorCode": "grey"
+    },
+    {
+      "name": "CMDFournisseur",
+      "amount": 2000,
+      "colorCode": "aquamarine"
+    },
+    {
+      "name": "Entreprise",
+      "amount": 7000,
+      "colorCode": "mediumseagreen"
+    }
+  ]
+}

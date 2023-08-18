@@ -17,12 +17,6 @@ export class MenuComponent implements OnInit {
       url: '',
       sousMenu: [
         {
-          id: '11',
-          titre: 'Vue d\'ensemble',
-          icon: 'fas fa-chart-pie',
-          url: ''
-        },
-        {
           id: '12',
           titre: 'Statistiques',
           icon: 'fas fa-chart-bar',

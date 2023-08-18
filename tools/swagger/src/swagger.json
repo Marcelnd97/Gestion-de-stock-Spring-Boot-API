@@ -643,7 +643,7 @@
     "/gestiondestock/v1/commandeClients/ligneCommande/{idCommande}" : {
       "get" : {
         "tags" : [ "commandeClients" ],
-        "operationId" : "findAllCommandeClientByIdCommandeClient",
+        "operationId" : "findAllLignesCommandeClientByIdCommandeClient",
         "parameters" : [ {
           "name" : "idCommande",
           "in" : "path",
@@ -739,7 +739,7 @@
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/all" : {
+    "/gestiondestock/v1/commandesfournisseurs/all" : {
       "get" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "findAll",
@@ -756,7 +756,118 @@
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/article/update/{idCommande}/{idLigneCommande}/{idArticle}" : {
+    "/gestiondestock/v1/commandesfournisseurs/create" : {
+      "post" : {
+        "tags" : [ "commandefournisseur" ],
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CommandeFournisseurDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/delete/article/{idCommande}/{idLigneCommande}" : {
+      "delete" : {
+        "tags" : [ "commandefournisseur" ],
+        "operationId" : "deleteArticle",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idLigneCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/delete/{idCommandeFournisseur}" : {
+      "delete" : {
+        "tags" : [ "commandefournisseur" ],
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "idCommandeFournisseur",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/filter/{codeCommandeFournisseur}" : {
+      "get" : {
+        "tags" : [ "commandefournisseur" ],
+        "operationId" : "findByCode",
+        "parameters" : [ {
+          "name" : "codeCommandeFournisseur",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/lignesCommande/{idCommande}" : {
+      "get" : {
+        "tags" : [ "commandefournisseur" ],
+        "operationId" : "findAllLignesCommandesFournisseurByCommandeFournisseurId",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneCommandeFournisseurDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/commandesfournisseurs/update/article/{idCommande}/{idLigneCommande}/{idArticle}" : {
       "patch" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "updateArticle",
@@ -789,94 +900,7 @@
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/codeCOMF/{codeCommandeFournisseur}" : {
-      "get" : {
-        "tags" : [ "commandefournisseur" ],
-        "operationId" : "findComFrsByCode",
-        "parameters" : [ {
-          "name" : "codeCommandeFournisseur",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/CommandeFournisseurDto"
-            }
-          }
-        }
-      }
-    },
-    "/gestiondestock/v1/commandesFournisseur/create" : {
-      "post" : {
-        "tags" : [ "commandefournisseur" ],
-        "operationId" : "save",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/CommandeFournisseurDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/CommandeFournisseurDto"
-            }
-          }
-        }
-      }
-    },
-    "/gestiondestock/v1/commandesFournisseur/delete/{idCommandeFournisseur}" : {
-      "delete" : {
-        "tags" : [ "commandefournisseur" ],
-        "operationId" : "delete",
-        "parameters" : [ {
-          "name" : "idCommandeFournisseur",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "default" : {
-            "description" : "successful operation"
-          }
-        }
-      }
-    },
-    "/gestiondestock/v1/commandesFournisseur/deleteArticle/{idCommande}/{idLigneCommande}" : {
-      "delete" : {
-        "tags" : [ "commandefournisseur" ],
-        "operationId" : "deleteArticle",
-        "parameters" : [ {
-          "name" : "idCommande",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int32"
-        }, {
-          "name" : "idLigneCommande",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/CommandeFournisseurDto"
-            }
-          }
-        }
-      }
-    },
-    "/gestiondestock/v1/commandesFournisseur/etat/update/{idCommande}/{etatCommande}" : {
+    "/gestiondestock/v1/commandesfournisseurs/update/etat/{idCommande}/{etatCommande}" : {
       "patch" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "updateEtatCommande",
@@ -903,7 +927,7 @@
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/fournisseur/update/{idCommande}/{idFournisseur}" : {
+    "/gestiondestock/v1/commandesfournisseurs/update/fournisseur/{idCommande}/{idFournisseur}" : {
       "patch" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "updateFournisseur",
@@ -930,31 +954,7 @@
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/ligneCommande/{idCommande}" : {
-      "get" : {
-        "tags" : [ "commandefournisseur" ],
-        "operationId" : "findAllCommandeClientByIdCommandeClient",
-        "parameters" : [ {
-          "name" : "idCommande",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int32"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/LigneCommandeFournisseurDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/gestiondestock/v1/commandesFournisseur/quantite/update/{idCommande}/{idLigneCommande}/{quantite}" : {
+    "/gestiondestock/v1/commandesfournisseurs/update/quantite/{idCommande}/{idLigneCommande}/{quantite}" : {
       "patch" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "updateQuantiteCommande",
@@ -980,13 +980,13 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/CommandeClientDto"
+              "$ref" : "#/definitions/CommandeFournisseurDto"
             }
           }
         }
       }
     },
-    "/gestiondestock/v1/commandesFournisseur/{idCommandeFournisseur}" : {
+    "/gestiondestock/v1/commandesfournisseurs/{idCommandeFournisseur}" : {
       "get" : {
         "tags" : [ "commandefournisseur" ],
         "operationId" : "findById",
@@ -1250,6 +1250,23 @@
           "type" : "integer",
           "format" : "int32"
         } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MouveStockDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gestiondestock/v1/mouveStock/findAllMvstk" : {
+      "get" : {
+        "tags" : [ "mouveStock" ],
+        "operationId" : "findAllMouveStock",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1567,6 +1584,26 @@
     }
   },
   "definitions" : {
+    "Adresse" : {
+      "type" : "object",
+      "properties" : {
+        "adresse1" : {
+          "type" : "string"
+        },
+        "adresse2" : {
+          "type" : "string"
+        },
+        "ville" : {
+          "type" : "string"
+        },
+        "codePostale" : {
+          "type" : "string"
+        },
+        "pays" : {
+          "type" : "string"
+        }
+      }
+    },
     "AdresseDto" : {
       "type" : "object",
       "properties" : {
@@ -1587,6 +1624,78 @@
         }
       }
     },
+    "Article" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "codeArticle" : {
+          "type" : "string"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalStock" : {
+          "type" : "number"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "prixUnitaireHT" : {
+          "type" : "number"
+        },
+        "tauxTVA" : {
+          "type" : "number"
+        },
+        "prixUnitaireTTC" : {
+          "type" : "number"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "category" : {
+          "$ref" : "#/definitions/Category"
+        },
+        "ligneVentes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneVente"
+          }
+        },
+        "ligneCommandeClients" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeClient"
+          }
+        },
+        "ligneCommandeFournisseurs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeFournisseur"
+          }
+        },
+        "mouveStocks" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MouveStock"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "ArticleDto" : {
       "type" : "object",
       "properties" : {
@@ -1599,6 +1708,9 @@
         },
         "designation" : {
           "type" : "string"
+        },
+        "totalStock" : {
+          "type" : "number"
         },
         "prixUnitaireHT" : {
           "type" : "number"
@@ -1640,6 +1752,42 @@
         }
       }
     },
+    "Category" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "articles" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Article"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "CategoryDto" : {
       "type" : "object",
       "properties" : {
@@ -1674,6 +1822,54 @@
         }
       }
     },
+    "Client" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "adresse" : {
+          "$ref" : "#/definitions/Adresse"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "mail" : {
+          "type" : "string"
+        },
+        "numTel" : {
+          "type" : "string"
+        },
+        "commandeClients" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CommandeClient"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "ClientDto" : {
       "type" : "object",
       "properties" : {
@@ -1702,6 +1898,50 @@
         "idEntreprise" : {
           "type" : "integer",
           "format" : "int32"
+        }
+      }
+    },
+    "CommandeClient" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "etatCommande" : {
+          "type" : "string",
+          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dateCommande" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "client" : {
+          "$ref" : "#/definitions/Client"
+        },
+        "lignecommandeClients" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeClient"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
         }
       }
     },
@@ -1741,6 +1981,50 @@
         }
       }
     },
+    "CommandeFournisseur" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "dateCommande" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "etatCommande" : {
+          "type" : "string",
+          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fournisseur" : {
+          "$ref" : "#/definitions/Fournisseur"
+        },
+        "ligneCommandeFournisseurs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeFournisseur"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "CommandeFournisseurDto" : {
       "type" : "object",
       "properties" : {
@@ -1751,13 +2035,13 @@
         "code" : {
           "type" : "string"
         },
-        "etatCommande" : {
-          "type" : "string",
-          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
-        },
         "dateCommande" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "etatCommande" : {
+          "type" : "string",
+          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
         },
         "fournisseur" : {
           "$ref" : "#/definitions/FournisseurDto"
@@ -1766,7 +2050,7 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "lignecommandeFournisseur" : {
+        "ligneCommandeFournisseurs" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/LigneCommandeFournisseurDto"
@@ -1810,6 +2094,54 @@
         }
       }
     },
+    "Fournisseur" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "adresse" : {
+          "$ref" : "#/definitions/Adresse"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "mail" : {
+          "type" : "string"
+        },
+        "numTel" : {
+          "type" : "string"
+        },
+        "commandefournisseur" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CommandeFournisseur"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "FournisseurDto" : {
       "type" : "object",
       "properties" : {
@@ -1841,18 +2173,26 @@
         }
       }
     },
-    "LigneCommandeClientDto" : {
+    "LigneCommandeClient" : {
       "type" : "object",
       "properties" : {
         "id" : {
           "type" : "integer",
           "format" : "int32"
         },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "article" : {
-          "$ref" : "#/definitions/ArticleDto"
+          "$ref" : "#/definitions/Article"
         },
         "commandeClient" : {
-          "$ref" : "#/definitions/CommandeClientDto"
+          "$ref" : "#/definitions/CommandeClient"
         },
         "quantite" : {
           "type" : "number"
@@ -1863,6 +2203,67 @@
         "idEntreprise" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "username" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "LigneCommandeClientDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "article" : {
+          "$ref" : "#/definitions/ArticleDto"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "LigneCommandeFournisseur" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "article" : {
+          "$ref" : "#/definitions/Article"
+        },
+        "commandeFournisseur" : {
+          "$ref" : "#/definitions/CommandeFournisseur"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "username" : {
+          "type" : "boolean"
         }
       }
     },
@@ -1877,7 +2278,7 @@
           "$ref" : "#/definitions/ArticleDto"
         },
         "commandeFournisseur" : {
-          "$ref" : "#/definitions/CommandeFournisseurDto"
+          "$ref" : "#/definitions/CommandeFournisseur"
         },
         "quantite" : {
           "type" : "number"
@@ -1888,6 +2289,42 @@
         "idEntreprise" : {
           "type" : "integer",
           "format" : "int32"
+        }
+      }
+    },
+    "LigneVente" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "vente" : {
+          "$ref" : "#/definitions/Ventes"
+        },
+        "article" : {
+          "$ref" : "#/definitions/Article"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "username" : {
+          "type" : "boolean"
         }
       }
     },
@@ -1913,6 +2350,48 @@
         "idEntreprise" : {
           "type" : "integer",
           "format" : "int32"
+        }
+      }
+    },
+    "MouveStock" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateMouveStock" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "article" : {
+          "$ref" : "#/definitions/Article"
+        },
+        "typeMouveStk" : {
+          "type" : "string",
+          "enum" : [ "ENTREE", "SORTIE", "CORRECTION_POS", "CORRECTION_NEG" ]
+        },
+        "sourceMvt" : {
+          "type" : "string",
+          "enum" : [ "COMMANDE_CLIENT", "COMMANDE_FOURNISSEUR", "VENTE" ]
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "username" : {
+          "type" : "boolean"
         }
       }
     },
@@ -2019,6 +2498,46 @@
         "idEntreprise" : {
           "type" : "integer",
           "format" : "int32"
+        }
+      }
+    },
+    "Ventes" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "dateVente" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "commantaire" : {
+          "type" : "string"
+        },
+        "idEntreprise" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ligneVentes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneVente"
+          }
+        },
+        "username" : {
+          "type" : "boolean"
         }
       }
     }

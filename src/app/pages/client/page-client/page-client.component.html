@@ -5,6 +5,8 @@
         </div>
         <div class="col-md-4 text-right">
             <app-button-action
+                    [isImporterVisible]="false"
+                    [isExporterVisible]="false"
                     (clickEvent)="nouveauClient()"
             ></app-button-action>
         </div>
@@ -18,7 +20,7 @@
                             [origin]="'client'" (suppressionResult)="handleSuppression($event)">
         </app-detail-clt-frs>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3" *ngIf="listClient.length > 0">
         <div class=" col-md-12 text-center">
             <app-pagination></app-pagination>
         </div>

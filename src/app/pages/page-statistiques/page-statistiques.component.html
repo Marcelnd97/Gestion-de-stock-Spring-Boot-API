@@ -1,1 +1,90 @@
-<h3>Les statistiques</h3>
+<div class="col">
+    <div class="row p-2">
+        <mat-card class="col-md-4 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>Categories</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{categoryDataId.length}}</h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>category</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+        <mat-card class="col-md-4 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>CMDFournisseurs</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{cmdFrsDataId.length}}</h2></mat-card-subtitle>
+                    <mat-icon>commande</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+        <mat-card class="col-md-4 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>CMDClients</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{cmdCltDataId.length}} </h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>commande</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row p-2">
+        <mat-card class="col-md-3 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>Fournisseurs</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{fournisseurDataId.length}}</h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>account_circle</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+        <mat-card class="col-md-3 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>Entreprises</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{entrepriseDataId.length}}</h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>start_up</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+        <mat-card class="col-md-3 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>Clients</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{clientDataId.length}}</h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>account_circle</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+        <mat-card class="col-md-3 p-0 border">
+            <mat-card-header class="bg-success border">
+                <mat-card-title-group>
+                    <mat-card-title><h2>Articles</h2></mat-card-title>
+                    <mat-card-subtitle><h2>{{articleDataId.length}}</h2></mat-card-subtitle>&nbsp;&nbsp;
+                    <mat-icon>article</mat-icon>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row p-2">
+        <mat-card class="col-md-6">
+            <mat-card-content>
+                <div>
+                    <h2>Bar Chart</h2>
+                    <canvas style="margin-top: 15%" id="barchart"></canvas>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="col-md-6">
+            <mat-card-content>
+                <div style="width:60%; height:60%; margin-left: 20%;">
+                    <h2>Pie Chart</h2>
+                    <canvas id="piechart">
+                    </canvas>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

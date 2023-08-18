@@ -20,7 +20,7 @@ class CommandeClientsService extends __BaseService {
   static readonly deletePath = '/gestiondestock/v1/commandeClients/delete/{idCommandeClient}';
   static readonly deleteArticlePath = '/gestiondestock/v1/commandeClients/deleteArticle/{idCommande}/{idLigneCommande}';
   static readonly updateEtatCommandePath = '/gestiondestock/v1/commandeClients/etat/update/{idCommande}/{etatCommande}';
-  static readonly findAllCommandeClientByIdCommandeClientPath = '/gestiondestock/v1/commandeClients/ligneCommande/{idCommande}';
+  static readonly findAllLignesCommandeClientByIdCommandeClientPath = '/gestiondestock/v1/commandeClients/ligneCommande/{idCommande}';
   static readonly updateQuantiteCommandePath = '/gestiondestock/v1/commandeClients/quantite/update/{idCommande}/{idLigneCommande}/{quantite}';
   static readonly findByIdPath = '/gestiondestock/v1/commandeClients/{idCommandeClient}';
   static readonly savePath = '/gestiondestock/v1/commandesClient/create';
@@ -328,7 +328,7 @@ class CommandeClientsService extends __BaseService {
    * @param idCommande undefined
    * @return successful operation
    */
-  findAllCommandeClientByIdCommandeClientResponse(idCommande: number): __Observable<__StrictHttpResponse<Array<LigneCommandeClientDto>>> {
+  findAllLignesCommandeClientByIdCommandeClientResponse(idCommande: number): __Observable<__StrictHttpResponse<Array<LigneCommandeClientDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -354,8 +354,8 @@ class CommandeClientsService extends __BaseService {
    * @param idCommande undefined
    * @return successful operation
    */
-  findAllCommandeClientByIdCommandeClient(idCommande: number): __Observable<Array<LigneCommandeClientDto>> {
-    return this.findAllCommandeClientByIdCommandeClientResponse(idCommande).pipe(
+  findAllLignesCommandeClientByIdCommandeClient(idCommande: number): __Observable<Array<LigneCommandeClientDto>> {
+    return this.findAllLignesCommandeClientByIdCommandeClientResponse(idCommande).pipe(
       __map(_r => _r.body as Array<LigneCommandeClientDto>)
     );
   }

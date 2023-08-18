@@ -19,6 +19,7 @@ import {NouvelUtilisateurComponent} from './pages/utilisateur/nouvel-utilisateur
 import {PageProfilComponent} from './pages/profil/page-profil/page-profil.component';
 import {ChangerMotDePasseComponent} from './pages/profil/changer-mot-de-passe/changer-mot-de-passe.component';
 import {GuardService} from './services/guard.service';
+import {DonneeArticleComponent} from './composants/donnee-article/donnee-article.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'inscrire',
     component: PageInscriptionComponent
+  },
+  {
+    path: 'donneearticle',
+    component: DonneeArticleComponent
   },
   {
     path: '',

@@ -5,6 +5,8 @@
         </div>
         <div class="col-md-4 text-right">
             <app-button-action
+                    [isImporterVisible]="false"
+                    [isExporterVisible]="false"
                     (clickEvent)="nouvelleCategory()">
             </app-button-action>
         </div>
@@ -17,26 +19,21 @@
             <div class="col-md-3 custom-border-right">
                 {{cat.code}}
             </div>
-            <div class="col-md-5 custom-border-right">
+            <div class="col-md-6 custom-border-right">
                 {{cat.designation}}
             </div>
             <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-4">
+                <div class="row ml-5">
+                    <div class="col-md-6">
                         <button type="button" class="btn btn-link" (click)="modifierCategory(cat.id)">
-                            <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+                            <i class="fas fa-pencil-alt"></i>
                         </button>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <button type="button" class="btn btn-link text-danger" data-toggle="modal"
                                 data-target="#modalDeleteCat"
                                 (click)="selectCatPourSupprimer(cat.id)">
-                            <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-link ">
-                            <i class="far fa-list-alt"></i>&nbsp;Details
+                            <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
                 </div>
@@ -51,7 +48,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalDeleteCat" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+<div class="modal fade" id="modalDeleteCat" data-backdrop="static" data-keyboard="false"
+     tabindex="-1" aria-labelledby="staticBackdropLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -66,9 +64,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="annulerSuppressionCat()">
-                    <i class="fas fa-ban"></i>&nbsp;Annuler</button>
+                    <i class="fas fa-ban"></i></button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmerEtSupprimerCat()">
-                    <i class="fas fa-trash-alt"></i>&nbsp;Supprimer</button>
+                    <i class="fas fa-trash-alt"></i></button>
             </div>
         </div>
     </div>

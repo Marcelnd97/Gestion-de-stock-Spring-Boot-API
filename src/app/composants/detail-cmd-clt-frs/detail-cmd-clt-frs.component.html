@@ -4,56 +4,186 @@
     </div>
 
     <!--  Details article-->
-    <div class="col-md-4 custom-border-right mb-1 mt-1 ">
+    <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">nom</div>
+                <div class="col-md-10">{{ cltFrs?.nom }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">prenom</div>
+                <div class="col-md-10">{{ cltFrs?.prenom }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-phone-alt blue-color"></i></div>
-                <div class="col-md-10">numTel</div>
+                <div class="col-md-10">{{ cltFrs?.numTel }}</div>
             </div>
         </div>
     </div>
 
     <!--  details commande-->
-    <div class="col-md-3 custom-border-right mb-1 mt-1 ">
+    <div class="col-md-4 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-qrcode blue-color"></i></div>
-                <div class="col-md-10">code</div>
+                <div class="col-md-10">{{ commande.code }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-calendar-check blue-color"></i></div>
-                <div class="col-md-10">dateCommande</div>
+                <div class="col-md-10">{{ commande.dateCommande }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-cart-arrow-down blue-color"></i></div>
-                <div class="col-md-10">etatCommande</div>
+                <div class="col-md-10">{{ commande.etatCommande }}</div>
             </div>
         </div>
     </div>
 
     <!--  boutons action-->
     <div class="col-md-3 mb-1 mt-1 ">
-        <div class="row">
-            <div class="col-md-6 text-center">
-                <button type="button" class="btn btn-link" (click)="modifierClick()">
-                    <i class="fas fa-pencil-alt blue-color"></i>&nbsp;
-                    Modifier
+        <div class="row mt-4">
+            <div class="col-md-4 ml-4 text-center">
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        [attr.data-target]="'#modalModif' + commande.id">
+                    <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
-            <div class="col-md-6 text-center">
-                <button type="button" class="btn btn-link">
-                    <i class="fas fa-trash-alt blue-color"></i>&nbsp;
-                    Supprimer
+            <div class="col-md-4 mr-4 text-center">
+                <button type="button" class="btn btn-danger" data-toggle="modal"
+                        [attr.data-target]="'#modalDelete' + commande.id">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
         </div>
     </div>
+
+    <!--  Modal de modification  -->
+    <div class="modal fade" id="modalModif{{ commande.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabelsDetail">Modification de la commande {{origin}}</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col mb-3">
+                        <div class="col-md-12">
+                            <div class="col-md-12 mb-3 mt-3">
+                                <h2>Nouvelle commande {{origin}}</h2>
+                            </div>
+                            <div class="row p-3 custom-border">
+                                <div class="col-md-5 custom-border-right">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="nom"
+                                                   [(ngModel)]="clientFournisseur.nom"
+                                                   placeholder="Nom" >
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="prenom"
+                                                   [(ngModel)]="clientFournisseur.prenom"
+                                                   placeholder="Prenom">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="numTel"
+                                                       [(ngModel)]="clientFournisseur.numTel"
+                                                       placeholder="Telephone">
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-5 custom-border-right">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="codeCmd" [(ngModel)]="commande.code"
+                                                   placeholder="Code commande" >
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" [(ngModel)]="commande.dateCommande"
+                                                   placeholder="Date commande">
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control" name="cltFrs" [(ngModel)]="commande.etatCommande">
+                                                <option [value]="null">Selectionner l'état</option>
+                                                <option [value]="'EN_PREPARATION'">EN_PREPARATION</option>
+                                                <option [value]="'VALIDEE'">VALIDEE</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <img [src]="clientFournisseur.photo ? clientFournisseur.photo : 'assets/product.png'"
+                                         class="rounded-circle" width="150px" height="150px" />
+                                </div>
+                            </div>
+                            <div class="row mt-2 p-3 custom-border">
+                                <div class="form-row col-md-12">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" placeholder="Code article"
+                                               [(ngModel)]="searchedArticle.codeArticle">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" placeholder="Quantite"
+                                               [(ngModel)]="quantite">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"
+                                               placeholder="Prix unitaire"
+                                               [(ngModel)]="searchedArticle.prixUnitaireTTC">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12 text-right mt-2">
+                        <button class="btn btn-danger mr-3" data-dismiss="modal">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                        <button class="btn btn-primary" (click)="modifierCommande()">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  Modal de suppression  -->
+    <div class="modal fade" id="modalDelete{{ commande.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabelsDelet">Suppression de la commande {{origin}}</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Voulez-vous vraiment supprimer cette commande ?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fas fa-ban"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+
+
+
+<!---->
+
+

@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-8">
         <div class="input-group flex-nowrap">
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                   aria-describedby="addon-wrapping">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
             </div>
@@ -9,16 +10,34 @@
     </div>
     <div class="col-md-4">
         <div class="row">
-            <div class="col-md-9 text-right">
-                <span>Bonjour, </span>
-                <span>{{connectedUser.nom}}</span>
-
-            </div>
-
-            <div class="col-md-3">
-                <a href="javascript:void(0);" [routerLink]="['/profil']">
-                    <img src="favicon.ico" class="rounded-circle" />
-                </a>
+            <div class="col-md-12 text-right">
+                <button mat-icon-button [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <a href="javascript:void(0);" (click)="profil()" class="white-color">
+                            <img src="assets/client.png" width="30px" height="30px"
+                                 class="rounded-circle" />&nbsp;&nbsp;
+                            <span>Profil</span>
+                        </a>
+                    </button>
+                    <button mat-menu-item disabled>
+                        <mat-icon>user</mat-icon>
+                        <div class="badge badge-success">
+                            <i><b><span>{{connectedUser.nom}}</span></b></i>
+                        </div>
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>logout</mat-icon>
+                        <div class="badge badge-danger">
+                            <a href="javascript:void(0);" (click)="logoutUser()" class="cursor">
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </button>
+                </mat-menu>
             </div>
         </div>
     </div>

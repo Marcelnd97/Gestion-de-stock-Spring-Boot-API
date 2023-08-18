@@ -8,32 +8,30 @@
         <div class="col">
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">Code article</div>
+                <div class="col-md-10">{{mouvStockArticle.article?.codeArticle}}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">designation</div>
+                <div class="col-md-10">{{mouvStockArticle.article?.designation}}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-dollar-sign blue-color"></i></div>
-                <div class="col-md-10">prix HT</div>
+                <div class="col-md-10">{{mouvStockArticle.article?.prixUnitaireHT}}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-dollar-sign blue-color"></i></div>
-                <div class="col-md-10">prix TTC</div>
+                <div class="col-md-10">{{mouvStockArticle.article?.prixUnitaireTTC}}</div>
             </div>
         </div>
     </div>
 
     <!--  details categorie-->
-    <div class="col-md-3 custom-border-right mb-1 mt-1 ">
+    <div class="col-md-3 custom-border-right mb-1 mt-1">
         <div class="col-md-10 text-center">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 mt-4">
                     <h3>Stock actuel</h3>
-                </div>
-                <div class="col-md-12">
-                    <h3>139</h3>
+                    <h3>{{mouvStockArticle.article?.totalStock}}</h3>
                 </div>
             </div>
         </div>
@@ -42,8 +40,9 @@
     <!--  boutons action-->
     <div class="col-md-3 mb-1 mt-1 ">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">
+            <div class="col-md-12 text-center mt-4">
+                <button type="button" class="btn btn-link" data-toggle="modal"
+                        [attr.data-target]="'#exampleModal' + mouvStockArticle.id">
                     <i class="fab fa-stack-overflow blue-color"></i>&nbsp;Correction de stock
                 </button>
             </div>
@@ -51,7 +50,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" autofocus>
+<div class="modal fade" id="exampleModal{{mouvStockArticle.id}}" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true" autofocus>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,8 +74,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban"></i>&nbsp;Annuler</button>
-                <button type="button" class="btn btn-primary"> <i class="fas fa-save"></i>&nbsp;Enregistrer</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fas fa-ban"></i></button>
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-save"></i></button>
             </div>
         </div>
     </div>

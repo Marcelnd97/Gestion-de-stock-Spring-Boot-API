@@ -6,17 +6,17 @@
     <!--  Details article-->
     <div class="col-md-4 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">Nom</div>
+                <div class="col-md-10">{{ entrepriseData.nom }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-                <div class="col-md-10">Prenom</div>
+                <div class="col-md-10">{{ entrepriseData.email }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-phone-alt blue-color"></i></div>
-                <div class="col-md-10">0011 22 33 44 55 66</div>
+                <div class="col-md-10">{{ entrepriseData.numTel }}</div>
             </div>
         </div>
     </div>
@@ -24,39 +24,189 @@
     <!--  details categorie-->
     <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-home blue-color"></i></div>
-                <div class="col-md-10">Adresse 1 adresse 2</div>
+                <div class="col-md-10">
+                    {{ entrepriseData.adresse?.adresse1 }},&nbsp;
+                    {{ entrepriseData.adresse?.adresse2 }}
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-map-marker-alt blue-color"></i></div>
-                <div class="col-md-10">12345 Ville</div>
+                <div class="col-md-10">
+                    {{ entrepriseData.adresse?.codePostale }}
+                    {{ entrepriseData.adresse?.ville }}
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-globe-europe blue-color"></i></div>
-                <div class="col-md-10">Pays</div>
+                <div class="col-md-10">{{entrepriseData.adresse?.pays}}</div>
             </div>
         </div>
     </div>
 
     <!--  boutons action-->
     <div class="col-md-3 mb-1 mt-1 ">
-        <div class="row">
-            <div class="col-md-4">
-                <button type="button" class="btn btn-link">
-                    <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+        <div class="row mt-4 ml-3">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                        [attr.data-target]="'#modalEntrepriseModif' + entrepriseData.id">
+                    <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-link">
-                    <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
-                </button>
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-link ">
-                    <i class="far fa-list-alt"></i>&nbsp;Details
+            <div class="col-md-6">
+                <button type="button" class="btn btn-success" data-toggle="modal"
+                        [attr.data-target]="'#modalEntrepriseDetail' + entrepriseData.id">
+                    <i class="far fa-list-alt"></i>
                 </button>
             </div>
         </div>
     </div>
+
+<!--  Debut du Modal de Modification  -->
+    <div class="modal fade" id="modalEntrepriseModif{{ entrepriseData.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabels">Modification des données de l'utilisateur</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col mb-3">
+                        <div class="col-md-12 mb-3">
+                            <img src="assets/client.png" class="rounded-circle" width="200px" height="200px" />
+                        </div>
+                        <hr>
+                        <div class="col-md-12">
+                            <div class="col-md-12 mb-3">
+                                <h2><i class="fas fa-info-circle blue-color"></i>&nbsp;Information de l'utilisateur</h2>
+                            </div>
+                            <div class="col-md-12">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <input type="text" [(ngModel)]="entrepriseData.nom" name="nom"
+                                                   class="form-control" placeholder="Nom">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" [(ngModel)]="entrepriseData.email" name="email"
+                                                   class="form-control"
+                                                   placeholder="E-mail">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <input type="text" class="form-control"
+                                                   [(ngModel)]="entrepriseData.adresse!.adresse1"
+                                                   name="adresse1" placeholder="Adresse 1">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Adresse 2"
+                                                   [(ngModel)]="entrepriseData.adresse!.adresse1" name="adresse2">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Telephone"
+                                                   [(ngModel)]="entrepriseData.numTel" name="numTel">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Code postal"
+                                                   [(ngModel)]="entrepriseData.adresse!.codePostale" name="codePostale">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Ville"
+                                                   [(ngModel)]="entrepriseData.adresse!.ville" name="ville">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Pays"
+                                                   [(ngModel)]="entrepriseData.adresse!.pays" name="pays">
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fas fa-ban"></i>
+                    </button>
+                    <button class="btn btn-primary" (click)="updatEntreprise()">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--  Fin du Modal de Modification  -->
+
+<!--  Debut du Modal de detail  -->
+    <div class="modal fade" id="modalEntrepriseDetail{{ entrepriseData.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabelsDetail">Les détails de l'entreprise</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-3">
+                        <div class="card col-md-4 text-center mr-3">
+                            <div class="col">
+                                <div class="mb-3 mt-3">
+                                    <img src="assets/client.png" width="100px" height="100px">
+                                </div>
+                                <div class="mb-3">
+                                    <h2>{{ entrepriseData.adresse!.adresse1 }}</h2>
+                                    <small class="form-text text-muted">
+                                        {{ entrepriseData.adresse!.codePostale }},&nbsp;
+                                        {{ entrepriseData.adresse!.ville }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-7">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Le nom de l'entreprise</th>
+                                    <td>{{ entrepriseData.nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">L'email de l'entreprise</th>
+                                    <td>{{ entrepriseData.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Le pays</th>
+                                    <td>{{ entrepriseData.adresse!.pays }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Téléphone de l'entreprise</th>
+                                    <td>{{ entrepriseData.numTel }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fas fa-ban"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--  Fin du Modal de detail  -->
+
 </div>

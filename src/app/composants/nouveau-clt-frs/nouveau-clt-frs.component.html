@@ -22,11 +22,11 @@
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Nom"
                                name="nom" [(ngModel)]="clientFournisseur.nom">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Adresse 1"
-                               name="adresse1" [(ngModel)]="adresseDto.adresse1">
-                    </div>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Adresse 1"
+                           name="adresse1" [(ngModel)]="adresseDto.adresse1">
+                </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -72,12 +72,10 @@
     </div>
     <div class="col-md-12 text-right">
         <button class="btn btn-danger mr-3" (click)="cancelClick()">
-            <i class="fas fa-ban"></i>&nbsp;
-            Annuler
+            <i class="fas fa-ban"></i>
         </button>
         <button class="btn btn-primary" (click)="enregistrerClFr()">
-            <i class="fas fa-save"></i>&nbsp;
-            Enregitrer
+            <i class="fas fa-save"></i>
         </button>
     </div>
 

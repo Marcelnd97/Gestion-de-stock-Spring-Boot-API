@@ -12,12 +12,14 @@
             <form>
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Code category" name="code" [(ngModel)]="categoryDto.code">
+                        <input type="text" class="form-control" placeholder="Code category"
+                               name="code" [(ngModel)]="categoryDto.code">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="text" class="form-control" placeholder="Description" name="designation" [(ngModel)]="categoryDto.designation">
+                        <input type="text" class="form-control" placeholder="Description"
+                               name="designation" [(ngModel)]="categoryDto.designation">
                     </div>
                 </div>
             </form>
@@ -25,12 +27,10 @@
     </div>
     <div class="col-md-12 text-right">
         <button class="btn btn-danger mr-3" (click)="cancel()">
-            <i class="fas fa-ban"></i>&nbsp;
-            Annuler
+            <i class="fas fa-ban"></i>
         </button>
         <button class="btn btn-primary" (click)="enregistrerCategory()">
-            <i class="fas fa-save"></i>&nbsp;
-            Enregitrer
+            <i class="fas fa-save"></i>
         </button>
     </div>
 

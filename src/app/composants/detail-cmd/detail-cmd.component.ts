@@ -9,9 +9,14 @@ import {LigneCommandeClientDto} from '../../../gs-api/src/models/ligne-commande-
 export class DetailCmdComponent implements OnInit {
   @Input()
   ligneCommande: LigneCommandeClientDto = {};
+  totalId = 0;
   constructor() { }
 
   ngOnInit(): void {
+    this.calculerTotalColonId();
+  }
+  calculerTotalColonId(): void {
+    this.totalId = 0;
   }
 
 }

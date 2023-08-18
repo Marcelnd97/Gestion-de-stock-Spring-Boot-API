@@ -16,6 +16,7 @@ class MouveStockService extends __BaseService {
   static readonly correctionStockPosPath = '/gestiondestock/v1/mouveStock/correctionpos';
   static readonly entreeStockPath = '/gestiondestock/v1/mouveStock/entree';
   static readonly mvtStkArticlePath = '/gestiondestock/v1/mouveStock/filter/article/{idArticle}';
+  static readonly findAllMouveStockPath = '/gestiondestock/v1/mouveStock/findAllMvstk';
   static readonly sortieStockPath = '/gestiondestock/v1/mouveStock/sortie';
   static readonly stockReelArticlePath = '/gestiondestock/v1/mouveStock/stockreel/{idArticle}';
 
@@ -166,6 +167,39 @@ class MouveStockService extends __BaseService {
    */
   mvtStkArticle(idArticle: number): __Observable<Array<MouveStockDto>> {
     return this.mvtStkArticleResponse(idArticle).pipe(
+      __map(_r => _r.body as Array<MouveStockDto>)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllMouveStockResponse(): __Observable<__StrictHttpResponse<Array<MouveStockDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/gestiondestock/v1/mouveStock/findAllMvstk`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<MouveStockDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllMouveStock(): __Observable<Array<MouveStockDto>> {
+    return this.findAllMouveStockResponse().pipe(
       __map(_r => _r.body as Array<MouveStockDto>)
     );
   }

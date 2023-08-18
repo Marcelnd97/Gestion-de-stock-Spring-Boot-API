@@ -1,12 +1,13 @@
 <div class="row mb-1 mr-0 custom-border">
     <div class="col-md-2 custom-border-right p-1 text-center mb-1 mt-1 ">
-        <img [src]="clientFournisseur.photo ? clientFournisseur.photo : 'assets/product.png'" width="100px" height="100px">
+        <img [src]="clientFournisseur.photo ? clientFournisseur.photo : 'assets/product.png'" 
+             width="100px" height="100px">
     </div>
 
     <!--  Details article-->
     <div class="col-md-4 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
                 <div class="col-md-10">{{ clientFournisseur.nom }}</div>
             </div>
@@ -24,14 +25,14 @@
     <!--  details categorie-->
     <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="col">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-1"><i class="fas fa-home blue-color"></i></div>
-                <div class="col-md-10">{{ clientFournisseur.adresse?.adresse1 }} &nbsp;
+                <div class="col-md-10">{{ clientFournisseur.adresse?.adresse1 }},&nbsp;
                     {{ clientFournisseur.adresse?.adresse2 }}</div>
             </div>
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-map-marker-alt blue-color"></i></div>
-                <div class="col-md-10">{{ clientFournisseur.adresse?.codePostale }} &nbsp;
+                <div class="col-md-10">{{ clientFournisseur.adresse?.codePostale }},&nbsp;
                     {{ clientFournisseur.adresse?.ville }}</div>
             </div>
             <div class="row">
@@ -43,27 +44,30 @@
 
     <!--  boutons action-->
     <div class="col-md-3 mb-1 mt-1 ">
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-md-4">
                 <button type="button" class="btn btn-link" (click)="modifierClientFournisseur()">
-                    <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+                    <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-link text-danger" data-toggle="modal" [attr.data-target]="'#modalDelete' + clientFournisseur.id">
-                    <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
+                <button type="button" class="btn btn-link text-danger" 
+                        data-toggle="modal" [attr.data-target]="'#modalDelete' + clientFournisseur.id">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-link ">
-                    <i class="far fa-list-alt"></i>&nbsp;Details
+                <button type="button" class="btn btn-link" 
+                        data-toggle="modal" [attr.data-target]="'#modalDetail' + clientFournisseur.id">
+                    <i class="far fa-list-alt"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalDelete{{ clientFournisseur.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    <!-- Modal suppression -->
+    <div class="modal fade" id="modalDelete{{ clientFournisseur.id }}" 
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -79,9 +83,77 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-ban"></i>&nbsp;Annuler</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmerEtSupprimer()">
-                        <i class="fas fa-trash-alt"></i>&nbsp;Supprimer</button>
+                        <i class="fas fa-ban"></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                            (click)="confirmerEtSupprimer()">
+                        <i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!--  Modal detail  -->
+    <div class="modal fade" id="modalDetail{{ clientFournisseur.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabelsDetail">Les détails de l'entreprise</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-3">
+                        <div class="card col-md-4 text-center mr-3">
+                            <div class="col">
+                                <div class="mb-3 mt-3">
+                                    <img src="assets/client.png" width="100px" height="100px">
+                                </div>
+                                <div class="mb-3">
+                                    <h2>{{ clientFournisseur.prenom }}&nbsp;{{ clientFournisseur.nom }}</h2>
+                                    <small class="form-text text-muted">
+                                        {{ clientFournisseur.adresse!.adresse1 }},&nbsp;
+                                        {{ clientFournisseur.adresse!.codePostale }},&nbsp;
+                                        {{ clientFournisseur.adresse!.ville }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-7">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Le Prénom de l'entreprise</th>
+                                    <td>{{ clientFournisseur.prenom }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Le nom de l'entreprise</th>
+                                    <td>{{ clientFournisseur.nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">L'email de l'entreprise</th>
+                                    <td>{{ clientFournisseur.mail }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Le pays</th>
+                                    <td>{{ clientFournisseur.adresse!.pays }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Téléphone de l'entreprise</th>
+                                    <td>{{ clientFournisseur.numTel }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fas fa-ban"></i></button>
                 </div>
             </div>
         </div>

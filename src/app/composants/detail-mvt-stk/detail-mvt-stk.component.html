@@ -2,32 +2,46 @@
     <!--  Details article-->
     <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="row text-center">
-            <div class="col-md-11">12.12.2012</div>
+
+            <div class="col-md-11 pt-3">
+                <i class="far fa-calendar-alt blue-color"></i>&nbsp;
+                {{detailmvstk.dateMouveStock}}
+            </div>
         </div>
     </div>
 
     <!--  details categorie-->
     <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <h5>139</h5>
+            <div class="col-md-12 text-center pt-3">
+                <h5>
+                    {{detailmvstk.quantite}}
+                </h5>
             </div>
         </div>
     </div>
 
     <div class="col-md-3 custom-border-right mb-1 mt-1 ">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <h5>Sortie</h5>
+            <div class="col-md-12 text-center pt-3">
+                <h5>
+                    <span class="badge text-white text"
+                          [ngClass]="[detailmvstk.typeMouveStk === typeMouve.ENTREE ? ' bg-success' : ' bg-danger']">
+                           <i class="fas fa-truck-moving"></i>&nbsp;
+                        {{detailmvstk.typeMouveStk === typeMouve.ENTREE ? ' ENTREE' : ' SORTIE'}}
+                    </span>
+                </h5>
             </div>
         </div>
     </div>
-
-    <!--  boutons action-->
-    <div class="col-md-3 mb-1 mt-1">
-        <div class="row text-center">
-            <h5>COMMANDE_CLIENT</h5>
-
+    <div class="col-md-3 mb-1 mt-1 ">
+        <div class="row">
+            <div class="col-md-12 pt-3">
+                <h5>
+                    <i class="fas fa-user-secret blue-color"></i>&nbsp;
+                    {{detailmvstk.sourceMvt}}
+                </h5>
+            </div>
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@ import {AuthenticationResponse} from '../../gs-api/src/models/authentication-res
 import {UtilisateurDto} from '../../gs-api/src/models/utilisateur-dto';
 import {UtilisateurService} from '../../gs-api/src/services/utilisateur.service';
 import {ChangerMotDePasseUtilisateurDto} from '../../gs-api/src/models/changer-mot-de-passe-utilisateur-dto';
-import {ArticleDto} from '../../gs-api/src/models/article-dto';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,14 @@ export class UserService {
 
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
-              private utilisateurService: UtilisateurService) { }
+              private utilisateurService: UtilisateurService,
+              private http: HttpClient) { }
+
+  // server json local
+
+  GetChartInfo(): Observable<any>{
+    return this.http.get('http://localhost:3000/statistiques');
+  }
 
   login(authenticationRequest: AuthenticationRequest): Observable<AuthenticationResponse>{
     return this.authenticationService.authenticate(authenticationRequest);
@@ -55,5 +62,10 @@ export class UserService {
     this.router.navigate(['login']);
     return false;
   }
-
+  // tslint:disable-next-line:typedef
+  public logoutUser(){
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('connectedUser');
+    return true;
+  }
 }

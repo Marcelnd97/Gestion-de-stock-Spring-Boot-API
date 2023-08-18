@@ -11,50 +11,30 @@
         </div>
     </div>
     <div class="col">
-        <div class="accordion" id="mvtStkDetails">
+        <div class="accordion" id="mvtStkDetails" *ngFor="let muvStkArt of mouvStockArticle">
             <div class="card">
                 <div class="card-body" id="headingOne">
-                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <app-detail-mvt-stk-article></app-detail-mvt-stk-article>
+                    <button class="btn btn-block text-left" type="button" data-toggle="collapse"
+                            [attr.data-target]="'#collapseOne'+muvStkArt.id"
+                            aria-expanded="true" aria-controls="collapseOne">
+                        <app-detail-mvt-stk-article
+                                [mouvStockArticle]="muvStkArt">
+                        </app-detail-mvt-stk-article>
                     </button>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#mvtStkDetails" style="max-height: 300px;
+                <div id="collapseOne{{muvStkArt.id}}" class="collapse" aria-labelledby="headingOne"
+                     data-parent="#mvtStkDetails" style="max-height: 300px;
         overflow-y: scroll">
                     <div class="card-body">
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                    </div>
-                </div>
-            </div>
-            <!-- +++++++++++++ -->
-            <div class="card">
-                <div class="card-body" id="headingOne1">
-                    <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-                            aria-controls="collapseOne">
-                        <app-detail-mvt-stk-article></app-detail-mvt-stk-article>
-                    </button>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#mvtStkDetails" style="max-height: 300px;
-        overflow-y: scroll">
-                    <div class="card-body">
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
-                        <app-detail-mvt-stk></app-detail-mvt-stk>
+                        <app-detail-mvt-stk *ngFor="let muvstkArt of mouvStockArticle"
+                            [detailmvstk]="muvstkArt" >
+                        </app-detail-mvt-stk>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3" *ngIf="mouvStockArticle.length">
         <div class=" col-md-12 text-center">
             <app-pagination></app-pagination>
         </div>

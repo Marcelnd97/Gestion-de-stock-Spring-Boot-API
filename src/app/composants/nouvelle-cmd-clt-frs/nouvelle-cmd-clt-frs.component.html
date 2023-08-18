@@ -12,7 +12,8 @@
             <div class="col-md-5 custom-border-right">
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="codeCmd" [(ngModel)]="codeCommande" placeholder="Code commande" >
+                        <input type="text" class="form-control" name="codeCmd" [(ngModel)]="codeCommande"
+                               placeholder="Code commande" >
                     </div>
                     <div class="form-group">
                         <input type="date" class="form-control" placeholder="Date commande">
@@ -46,8 +47,10 @@
                     <div class="row">
                         <div class="col-md-1"><i class="fas fa-hourglass-half blue-color"></i></div>
                         <div class="col-md-10 text-primary">
-                            <span class="badge"[ngClass]="[badgeClientFournisseur.etatCommande === badgeClientFournisseur ? ' bg-success' : ' bg-warning']">
-                                    {{badgeClientFournisseur.etatCommande === badgeClientFournisseur ? ' LIVREE' : ' EN_PREPARATION'}}
+                            <span class="badge"[ngClass]="[badgeClientFournisseur.etatCommande === badgeClientFournisseur ?
+                                                           ' bg-success' : ' bg-warning']">
+                                    {{badgeClientFournisseur.etatCommande === badgeClientFournisseur ?
+                                      ' LIVREE' : ' EN_PREPARATION'}}
                             </span>
                         </div>
                     </div>
@@ -66,7 +69,8 @@
                     <div class="badge badge-success" *ngIf="codeArticle.length && !articleNotYetSelected">
                         <p class="p-1" *ngFor="let article of listArticle"
                         (click)="selectArticleClick(article)">
-                            CODE ARTICLE => {{ article.codeArticle }}&nbsp;-&nbsp; DESIGNATION ARTICLE => {{ article.designation }}
+                            CODE ARTICLE => {{ article.codeArticle }}&nbsp;-&nbsp;
+                            DESIGNATION ARTICLE => {{ article.designation }}
                         </p>
                     </div>
                 </div>
@@ -74,10 +78,12 @@
                     <input type="text" class="form-control" [(ngModel)]="quantite" placeholder="Quantite">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" [(ngModel)]="searchedArticle.prixUnitaireTTC" placeholder="Prix unitaire" >
+                    <input type="text" class="form-control" [(ngModel)]="searchedArticle.prixUnitaireTTC"
+                           placeholder="Prix unitaire" >
                 </div>
                 <div class="col-md-1">
-                    <button type="button" class="btn btn-success" (click)="ajouterLigneCommande()"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-success" (click)="ajouterLigneCommande()">
+                        <i class="fas fa-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -96,12 +102,10 @@
     </div>
     <div class="col-md-12 text-right mt-2">
         <button class="btn btn-danger mr-3" (click)="cancel()">
-            <i class="fas fa-ban"></i>&nbsp;
-            Annuler
+            <i class="fas fa-ban"></i>
         </button>
         <button class="btn btn-primary" (click)="enregistrerCommande()">
-            <i class="fas fa-save"></i>&nbsp;
-            Enregitrer
+            <i class="fas fa-save"></i>
         </button>
     </div>
 

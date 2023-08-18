@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {ClientService} from '../../../../gs-api/src/services/client.service';
 import {CltfrsService} from '../../../services/cltfrs.service';
 import {ClientDto} from '../../../../gs-api/src/models/client-dto';
 

@@ -4,7 +4,7 @@
     </div>
 
     <!--  Details article-->
-    <div class="col-md-4 custom-border-right mb-1 mt-1 ">
+    <div class="col-md-4 custom-border-right mb-1 mt-1">
         <div class="col">
             <div class="row">
                 <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
@@ -41,28 +41,31 @@
     </div>
 
     <!--  boutons action-->
-    <div class="col-md-3 mb-1 mt-1 ">
-        <div class="row">
+    <div class="col-md-3">
+        <div class="row mt-5">
             <div class="col-md-4">
                 <button type="button" class="btn btn-link" (click)="modifierArticle()">
-                    <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+                    <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-link text-danger" data-toggle="modal"
                         [attr.data-target]="'#modalDeleteArticle' + articleDto.id">
-                    <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-link ">
-                    <i class="far fa-list-alt"></i>&nbsp;Details
+                <button type="button" class="btn btn-link"
+                        data-toggle="modal"
+                        [attr.data-target]="'#modalDetailsArticle' + articleDto.id">
+                    <i class="far fa-list-alt"></i>
                 </button>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="modalDeleteArticle{{ articleDto.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    <!-- Modal for deleting article-->
+    <div class="modal fade" id="modalDeleteArticle{{ articleDto.id }}" data-backdrop="static"
+         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,12 +80,78 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        <i class="fas fa-ban"></i>&nbsp;Annuler</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmerEtSupprimerArt()">
-                        <i class="fas fa-trash-alt"></i>&nbsp;Supprimer</button>
+                        <i class="fas fa-ban"></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        (click)="confirmerEtSupprimerArt()">
+                        <i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for article details-->
+    <div class="modal fade" id="modalDetailsArticle{{ articleDto.id }}"
+         data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabels"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabels">Les détails de l'article</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row m-3">
+                        <div class="card col-md-4 text-center mr-3">
+                            <div class="col">
+                                <div class="mb-3 mt-3">
+                                    <img [src]="articleDto.photo ? articleDto.photo : 'assets/product.png'"
+                                         width="100px;" height="100px;">
+                                </div>
+                                <div class="mb-3">
+                                    <h2>{{ articleDto.category?.code }}</h2>
+                                    <small class="form-text text-muted">
+                                        {{ articleDto.codeArticle }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card col-md-7">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Desigantion article</th>
+                                    <td>{{ articleDto.designation }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total de Stock</th>
+                                    <td>{{ articleDto.totalStock }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Prix unitaire HT</th>
+                                    <td>{{ articleDto.prixUnitaireHT }} F CFA</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Prix unitaire HTTC</th>
+                                    <td>{{ articleDto.prixUnitaireTTC }} F CFA</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Taux TVA</th>
+                                    <td>{{ articleDto.tauxTVA }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="fas fa-ban"></i></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

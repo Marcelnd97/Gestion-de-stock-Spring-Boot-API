@@ -22,7 +22,7 @@ export class PageLoginComponent implements OnInit {
     this.userService.login(this.authenticationRequest).subscribe((data) => {
       this.userService.setAccessToken(data);
       this.getUserByEmail();
-      this.router.navigate(['']);
+      this.router.navigate(['statistiques']);
     }, error => {
       this.errorMessage = 'Login et / ou mot de passe incorrecte';
     });

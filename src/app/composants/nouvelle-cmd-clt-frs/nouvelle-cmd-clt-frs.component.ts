@@ -4,7 +4,6 @@ import {CltfrsService} from '../../services/cltfrs.service';
 import {ArticleService} from '../../services/article.service';
 import {ArticleDto} from '../../../gs-api/src/models/article-dto';
 import {LigneCommandeClientDto} from '../../../gs-api/src/models/ligne-commande-client-dto';
-import {CommandeClientsService} from '../../../gs-api/src/services/commande-clients.service';
 import {CommandeClientDto} from '../../../gs-api/src/models/commande-client-dto';
 import {CmdcltfrsService} from '../../services/cmdcltfrs.service';
 import {CommandeFournisseurDto} from '../../../gs-api/src/models/commande-fournisseur-dto';
@@ -37,7 +36,6 @@ export class NouvelleCmdCltFrsComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private cltFrsService: CltfrsService,
               private articleService: ArticleService,
-              private commandeClientService: CommandeClientsService,
               private cmdCltFrsService: CmdcltfrsService) { }
 
   ngOnInit(): void {
@@ -65,7 +63,6 @@ export class NouvelleCmdCltFrsComponent implements OnInit {
   ajouterLigneCommande(): void {
    this.checkLigneCommande();
    this.calculerTotalCommande();
-
 
    this.searchedArticle = {};
    this.quantite = '';

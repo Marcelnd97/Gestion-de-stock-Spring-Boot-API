@@ -25,7 +25,6 @@ import { DetailMvtStkArticleComponent } from './composants/detail-mvt-stk-articl
 import { DetailUtilisateurComponent } from './composants/detail-utilisateur/detail-utilisateur.component';
 import { PaginationComponent } from './composants/pagination/pagination.component';
 import { HeaderComponent } from './composants/header/header.component';
-import { LoaderComponent } from './composants/loader/loader.component';
 import { MenuComponent } from './composants/menu/menu.component';
 import { NouveauCltFrsComponent } from './composants/nouveau-clt-frs/nouveau-clt-frs.component';
 import { NouvelleCmdCltFrsComponent } from './composants/nouvelle-cmd-clt-frs/nouvelle-cmd-clt-frs.component';
@@ -36,6 +35,15 @@ import { ChangerMotDePasseComponent } from './pages/profil/changer-mot-de-passe/
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {InterceptorService} from './services/interceptor.service';
+import {NgxUiLoaderHttpModule, NgxUiLoaderModule} from 'ngx-ui-loader';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DonneeArticleComponent } from './composants/donnee-article/donnee-article.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 @NgModule({
   declarations: [
@@ -62,21 +70,31 @@ import {InterceptorService} from './services/interceptor.service';
     DetailUtilisateurComponent,
     PaginationComponent,
     HeaderComponent,
-    LoaderComponent,
     MenuComponent,
     NouveauCltFrsComponent,
     NouvelleCmdCltFrsComponent,
     PageUtilisateurComponent,
     NouvelUtilisateurComponent,
     PageProfilComponent,
-    ChangerMotDePasseComponent
+    ChangerMotDePasseComponent,
+    DonneeArticleComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgxUiLoaderModule,
+        NgxUiLoaderHttpModule.forRoot({
+            showForeground: true,
+        }),
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDividerModule,
+    ],
   providers: [
   {
     provide: HTTP_INTERCEPTORS,
