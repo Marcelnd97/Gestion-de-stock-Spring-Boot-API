@@ -12,6 +12,9 @@ export class PageClientComponent implements OnInit {
 
   listClient: Array<ClientDto> = [];
   errorMsg = '';
+  client = '';
+  totalLength: any;
+  page = 1;
 
   constructor(private router: Router,
               private cltFrsService: CltfrsService) { }
@@ -32,6 +35,7 @@ export class PageClientComponent implements OnInit {
   }
 
   // cette methode permet le rafraichissement de la page après la suppression d'un client.
+
   handleSuppression(event: any): void {
     if (event === 'success') {
       this.findAllClients();

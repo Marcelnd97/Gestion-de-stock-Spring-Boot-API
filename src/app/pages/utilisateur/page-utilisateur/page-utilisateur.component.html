@@ -1,7 +1,18 @@
 <div class="col">
     <div class="row m-3">
-        <div class="col-md-8 p-0">
+        <div class="col-md-4 p-0">
             <h1>Liste des utilisateurs</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <input type="text" class="form-control" placeholder="Rechercher..."
+                       [(ngModel)]="utilisateur"
+                       aria-label="Username"
+                       aria-describedby="addon-wrappings">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrappings"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
         </div>
         <div class="col-md-4 text-right">
             <app-button-action
@@ -14,13 +25,16 @@
     </div>
     <div class="col m-3">
         <app-detail-utilisateur
-                *ngFor="let entreprise of listEntrepriseData"
+                *ngFor="let entreprise of listEntrepriseData
+                | filter: utilisateur
+                | paginate:{ itemsPerPage:2, currentPage:page, totalItems:totalLength}"
                 [entrepriseData]="entreprise"
         ></app-detail-utilisateur>
     </div>
     <div class="row mb-3">
         <div class=" col-md-12 text-center">
-            <app-pagination></app-pagination>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+<!--            <app-pagination></app-pagination>-->
         </div>
     </div>
 

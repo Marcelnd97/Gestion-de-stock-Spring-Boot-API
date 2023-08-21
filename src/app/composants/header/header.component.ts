@@ -10,8 +10,9 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   connectedUser: UtilisateurDto = {};
-
-  constructor(private userService: UserService, private router: Router) { }
+  codeArticles = '';
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.connectedUser = this.userService.getConnectedUser();

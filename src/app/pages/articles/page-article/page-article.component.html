@@ -1,7 +1,32 @@
 <div class="col">
     <div class="row m-3">
-        <div class="col-md-8 p-0">
+        <div class="col-md-4 p-0">
             <h1>Liste des articles</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <!--<input type="text" class="form-control" placeholder="Rechercher par code article"
+                       (click)="filterArticleDetail()" [(ngModel)]="codeArticle"
+                       aria-label="Username"
+                       aria-describedby="addon-wrapping">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+                </div>-->
+                <input type="text" class="form-control" placeholder="Rechercher par code article"
+                           [(ngModel)]="codeArticles"
+                       aria-label="Username"
+                       aria-describedby="addon-wrappings">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrappings"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+            <div class="badge badge-info" *ngIf="codeArticle.length && !articleNotYetSelected">
+                <p class="p-1" *ngFor="let article of listArticle"
+                   (click)="selectArticleClick(article)">
+                    CODE ARTICLE => {{ article.codeArticle }}&nbsp;-&nbsp;
+                    DESIGNATION ARTICLE => {{ article.designation }}
+                </p>
+            </div>
         </div>
         <div class="col-md-4 text-right">
             <app-button-action
@@ -13,14 +38,16 @@
             {{errorMsg}}
         </div>
     </div>
-    <div class="col m-3">
-        <app-detail-article *ngFor="let article of listArticle"
-                            [articleDto]="article" (suppressionResult)="handleSuppression($event)" >
+    <div class="col m-3" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <app-detail-article *ngFor="let article of listArticle | filter: codeArticles | paginate:{
+                    itemsPerPage:2, currentPage:page, totalItems:totalLength}"
+                    [articleDto]="article" (suppressionResult)="handleSuppression($event)">
         </app-detail-article>
     </div>
     <div class="row mb-3">
         <div class=" col-md-12 text-center">
-            <app-pagination></app-pagination>
+            <pagination-controls (pageChange)="page=$event"></pagination-controls>
+<!--            <app-pagination></app-pagination>-->
         </div>
     </div>
 

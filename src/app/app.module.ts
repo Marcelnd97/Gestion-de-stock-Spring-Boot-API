@@ -43,7 +43,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {DataTablesModule} from 'angular-datatables';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,9 @@ import {MatDividerModule} from '@angular/material/divider';
         MatButtonModule,
         MatCardModule,
         MatDividerModule,
+        DataTablesModule,
+        NgxPaginationModule,
+        Ng2SearchPipeModule
     ],
   providers: [
   {

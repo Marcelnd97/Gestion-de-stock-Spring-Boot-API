@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {EntreprisesService} from '../../../services/entreprises.service';
 import {EntrepriseDto} from '../../../../gs-api/src/models/entreprise-dto';
-import {AdresseDto} from '../../../../gs-api/src/models/adresse-dto';
 
 @Component({
   selector: 'app-page-utilisateur',
@@ -11,6 +10,11 @@ import {AdresseDto} from '../../../../gs-api/src/models/adresse-dto';
 })
 export class PageUtilisateurComponent implements OnInit {
   listEntrepriseData: Array<EntrepriseDto> = [];
+
+  utilisateur = '';
+  page = 1;
+  totalLength: any;
+
   constructor(private router: Router,
               private entrepriseService: EntreprisesService) { }
 

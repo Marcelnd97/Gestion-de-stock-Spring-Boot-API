@@ -12,6 +12,10 @@ export class PageCategoriesComponent implements OnInit {
   listCategory: Array<CategoryDto> = [];
   selectedCatIdToDelete ? = -1;
   errorMsg = '';
+
+  categorie = '';
+  totalLength: any;
+  page = 1;
   constructor(private router: Router,
               private categorieService: CategorieService) { }
 

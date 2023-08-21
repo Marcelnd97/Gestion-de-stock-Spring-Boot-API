@@ -9,6 +9,9 @@ import {MvstkService} from '../../../services/mvstk.service';
 })
 export class PageMvtstkComponent implements OnInit {
   mouvStockArticle: Array<MouveStockDto> = [];
+  codeArticles: any;
+  totalLength: any;
+  page = 1;
   constructor(private mvarticleService: MvstkService) { }
 
   ngOnInit(): void {

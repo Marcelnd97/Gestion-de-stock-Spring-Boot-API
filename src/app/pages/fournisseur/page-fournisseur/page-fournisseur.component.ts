@@ -12,6 +12,10 @@ export class PageFournisseurComponent implements OnInit {
   listFournisseur: Array<FournisseurDto> = [];
   errorMsg = '';
 
+  fournisseur = '';
+  totalLength: any;
+  page = 1;
+
   constructor(private router: Router,
               private cltFrsService: CltfrsService) { }
 
@@ -31,6 +35,7 @@ export class PageFournisseurComponent implements OnInit {
   }
 
   // cette methode permet le rafraichissement de la page après la suppression d'un client.
+
   handleSuppression(event: any): void {
     if (event === 'success') {
       this.findAllFrs();

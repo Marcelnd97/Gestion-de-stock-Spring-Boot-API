@@ -13,4 +13,11 @@ export class MvstkService {
   findAllMvstk(): Observable<MouveStockDto[]> {
       return this.mouvstkService.findAllMouveStock();
   }
+  // @ts-ignore
+  registreMouvStkNeg(corectStockNeg: MouveStockDto): Observable<MouveStockDto> {
+      return this.mouvstkService.correctionStockPos(corectStockNeg);
+  }
+  registreMouvStkPos(corectStockPos: MouveStockDto): Observable<MouveStockDto> {
+      return this.mouvstkService.correctionStockPos(corectStockPos);
+  }
 }

@@ -1,7 +1,18 @@
 <div class="col">
     <div class="row m-3">
-        <div class="col-md-8 p-0">
+        <div class="col-md-4 p-0">
             <h1>Commande {{origin}}s</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <input type="text" class="form-control" placeholder="Rechercher..."
+                       [(ngModel)]="commandeCltFrs"
+                       aria-label="Username"
+                       aria-describedby="addon-wrappings">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrappings"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
         </div>
         <div class="col-md-4 text-right">
             <app-button-action
@@ -12,7 +23,9 @@
         </div>
     </div>
     <div class="col m-3" >
-        <div class="accordion" id="accordionExample" *ngFor="let cmd of listeCommandes">
+        <div class="accordion" id="accordionExample" *ngFor="let cmd of listeCommandes
+                | filter: commandeCltFrs
+                | paginate:{ itemsPerPage:2, currentPage:page, totalItems:totalLength}">
             <div class="card">
                 <div class="card-body" id="headingOne">
                     <button class="btn btn-block text-left" type="button" data-toggle="collapse"
@@ -55,7 +68,8 @@
     </div>
     <div class="row mb-3" *ngIf="listeCommandes.length">
         <div class=" col-md-12 text-center">
-            <app-pagination></app-pagination>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+<!--            <app-pagination></app-pagination>-->
         </div>
     </div>
 
