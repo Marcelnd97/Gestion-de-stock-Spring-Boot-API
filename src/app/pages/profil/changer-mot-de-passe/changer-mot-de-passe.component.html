@@ -4,9 +4,13 @@
             <div class="mb-3 mt-3">
                 <img src="assets/client.png" class="rounded-circle" width="200px" height="200px"/>
             </div>
-            <div class="mb-3">
-                <h2>Nom Prenom</h2>
-                <small class="form-text text-muted">Adresse, Ville, 12345</small>
+            <div class="mb-3" *ngFor="let prof of profil" >
+                <h2>{{prof.nom}}</h2>
+                <small class="form-text text-muted">
+                    {{prof.adresse?.adresse1}},&nbsp;
+                    {{prof.adresse?.ville}},&nbsp;
+                    {{prof.adresse?.codePostale}}
+                </small>
             </div>
         </div>
     </div>

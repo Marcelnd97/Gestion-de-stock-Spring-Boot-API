@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ClientDto} from '../../../gs-api/src/models/client-dto';
 import {ArticleDto} from '../../../gs-api/src/models/article-dto';
-import {FournisseurDto} from '../../../gs-api/src/models/fournisseur-dto';
 import {CommandeClientDto} from '../../../gs-api/src/models/commande-client-dto';
 import {CommandeFournisseurDto} from '../../../gs-api/src/models/commande-fournisseur-dto';
 

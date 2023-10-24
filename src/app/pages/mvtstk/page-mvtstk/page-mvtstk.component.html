@@ -15,13 +15,16 @@
             </div>
         </div>
         <div class="col-md-4 p-0 text-right">
-            <app-button-action
-                    [isImporterVisible]="false"
-                    [isNouveauVisible]="false">
-            </app-button-action>
+            <button type="button" class="btn btn-success" (click)="mvstockPdf()">
+                <i class="fas fa-cloud-download-alt"></i>
+            </button>
+<!--            <app-button-action-->
+<!--                    [isImporterVisible]="false"-->
+<!--                    [isNouveauVisible]="false">-->
+<!--            </app-button-action>-->
         </div>
     </div>
-    <div class="col">
+    <div class="col m-3 cardPdf" #cardPdf>
         <div class="accordion" id="mvtStkDetails"
              *ngFor="let muvStkArt of mouvStockArticle | filter: codeArticles
                         | paginate: {itemsPerPage: 1, currentPage:page, totalItems:totalLength}">

@@ -3,7 +3,7 @@
         <div class="col-md-4 p-0">
             <h1>Commande {{origin}}s</h1>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 p-2">
             <div class="input-group flex-nowrap">
                 <input type="text" class="form-control" placeholder="Rechercher..."
                        [(ngModel)]="commandeCltFrs"
@@ -14,15 +14,20 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-2 text-right">
             <app-button-action
                     [isImporterVisible]="false"
-
+                    [isExporterVisible]="false"
                     (clickEvent)="nouvelleCommande()"
             ></app-button-action>
         </div>
+        <div class="col-md-2 p-2">
+            <button type="button" class="btn btn-success" (click)="ExportPdf()">
+                <i class="fas fa-cloud-download-alt"></i>
+            </button>
+        </div>
     </div>
-    <div class="col m-3" >
+    <div class="col m-3 cardPdf" #cardPdf>
         <div class="accordion" id="accordionExample" *ngFor="let cmd of listeCommandes
                 | filter: commandeCltFrs
                 | paginate:{ itemsPerPage:2, currentPage:page, totalItems:totalLength}">

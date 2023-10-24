@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CmdcltfrsService} from '../../services/cmdcltfrs.service';
 import {LigneCommandeClientDto} from '../../../gs-api/src/models/ligne-commande-client-dto';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-mage-cmd-clt-frs',
@@ -17,6 +18,8 @@ export class PageCmdCltFrsComponent implements OnInit {
     commandeCltFrs = '';
     page = 1;
     totalLength: any;
+
+    @ViewChild('cardPdf', {static: false}) el!: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -87,5 +90,17 @@ export class PageCmdCltFrsComponent implements OnInit {
 
     calculerTotalCommande(id?: number): number {
         return this.mapPrixTotalCommande.get(id);
+    }
+
+    ExportPdf(): void {
+        // @ts-ignore
+        const pdf = new  jsPDF('p', 'pt', 'a2');
+
+        pdf.html(this.el.nativeElement, {
+            // tslint:disable-next-line:no-shadowed-variable
+            callback: (pdf) => {
+                pdf.save('exporterCmd.pdf');
+            }
+        });
     }
 }

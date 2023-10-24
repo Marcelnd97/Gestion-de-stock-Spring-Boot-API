@@ -1,6 +1,6 @@
 <div class="row mb-1 mr-0 custom-border">
     <div class="col-md-2 custom-border-right p-1 text-center mb-1 mt-1 ">
-        <img [src]="clientFournisseur.photo ? clientFournisseur.photo : 'assets/product.png'" 
+        <img [src]="clientFournisseur.photo ? clientFournisseur.photo : 'assets/client.png'"
              width="100px" height="100px">
     </div>
 
@@ -100,7 +100,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="staticBackdropLabelsDetail">Les détails de l'entreprise</h3>
+                    <h3 class="modal-title" id="staticBackdropLabelsDetail">Les détails {{origin}} </h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -126,15 +126,15 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <th scope="row">Le Prénom de l'entreprise</th>
+                                    <th scope="row">Le Prénom {{origin}}</th>
                                     <td>{{ clientFournisseur.prenom }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Le nom de l'entreprise</th>
+                                    <th scope="row">Le nom {{origin}}</th>
                                     <td>{{ clientFournisseur.nom }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">L'email de l'entreprise</th>
+                                    <th scope="row">L'email {{origin}}</th>
                                     <td>{{ clientFournisseur.mail }}</td>
                                 </tr>
                                 <tr>
@@ -142,7 +142,7 @@
                                     <td>{{ clientFournisseur.adresse!.pays }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Téléphone de l'entreprise</th>
+                                    <th scope="row">Téléphone {{origin}}</th>
                                     <td>{{ clientFournisseur.numTel }}</td>
                                 </tr>
                                 </tbody>

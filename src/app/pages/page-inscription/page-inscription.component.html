@@ -1,7 +1,9 @@
 <div class="container my-container">
     <div class="card justify-content-md-center">
         <div class="card-header text-center">
-            <h3>S'inscrire</h3>
+            <div class="col-md-12 text-center">
+                <img src="assets/client.png" width="100px;" height="100px;">
+            </div>
         </div>
         <div class="card-body">
             <div class="alert alert-danger" *ngIf="errorMsg.length > 0">
@@ -38,6 +40,12 @@
             <div class="mb-3">
                 <textarea type="text" class="form-control" placeholder="Description" [(ngModel)]="entrepriseDto.description"></textarea>
             </div>
+<!--            <div class="mb-3">-->
+<!--                <button (click)="fileInput.click()" style="background-color: transparent; border: none;">-->
+<!--                    <img [src]="imgUrl" class="rounded-circle" width="200px;" height="200px;" />-->
+<!--                    <input hidden type="file" #fileInput (change)="onFileInput(fileInput.files)">-->
+<!--                </button>-->
+<!--            </div>-->
             <div class="mb-3 d-flex justify-content-between">
                 <a [routerLink]="['/login']" class="btn btn-link">Se connecter</a>
                 <button type="button" class="btn btn-primary" (click)="inscrire()">
